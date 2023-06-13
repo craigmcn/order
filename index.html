@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Vite App</title>
+  </head>
+  <body>
+    <main class="container max-w-lg min-w-min mx-auto mt-8 px-4">
+      <h1 class="my-8 text-2xl font-thin uppercase tracking-wider text-slate-700">Generate Speaking Order</h1>
+
+      <form id="generate">
+        <label class="block text-slate-500 mb-1" for="names">Participant names</label>
+        <textarea id="names" name="names" data-autoresize class="w-full p-2 border rounded border-slate-300 hover:border-slate-400 focus:border-slate-400 focus-visible:border-slate-400 outline-offset-4 outline-orange-500/50 resize-none" rows="2" cols="50"></textarea>
+
+        <label class="w-auto block text-slate-500">
+          <input id="remember" class="mr-1 leading-tight accent-green-600 outline-orange-500/50" type="checkbox">
+          <span class="text-sm">
+            Remember this list
+          </span>
+        </label>
+
+        <button class="block w-full mt-4 bg-orange-500 hover:bg-orange-600 focus:bg-orange-600 focus-visible:bg-orange-600 text-orange-50 py-2 px-4 border-b-4 border-orange-600 hover:border-orange-700 focus:border-orange-700 focus-visible:border-orange-700 rounded outline-4 outline-offset-2 outline-orange-500/50" type="submit">Generate</button>
+      </form>
+
+      <p id="speaking-order" class="mx-auto mt-8 p-4 border rounded border-slate-300 hidden text-2xl text-slate-500"></p>
+    </main>
+
+    <script type="module" src="/main.js"></script>
+  </body>
+</html>
