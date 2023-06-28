@@ -1,8 +1,13 @@
 {
-  "name": "circle",
+  "name": "speaking-order-generator",
   "private": true,
   "version": "0.1.0",
   "type": "module",
+  "license" : "SEE LICENSE IN LICENSE",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/craigmcn/order.git"
+  },
   "scripts": {
     "dev": "vite",
     "build": "vite build",
