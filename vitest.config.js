@@ -14,9 +14,8 @@ export default mergeConfig(
         reporter: ['text', 'json', 'html'],
         exclude: [
           'node_modules/**',
-          'coverage',
+          'coverage/**',
           'dist/**',
-          '**/*{.,-}spec.ts',
           '**/{vite,vitest,tailwind}.config.js'
         ],
         extension: ['.js', '.jsx']
