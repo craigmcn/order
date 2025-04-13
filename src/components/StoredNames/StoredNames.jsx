@@ -9,11 +9,7 @@ StoredNames.propTypes = {
   onSelect: PropTypes.func,
 };
 
-StoredNames.defaultProps = {
-  onSelect: () => {},
-};
-
-function StoredNames({ onSelect }) {
+function StoredNames({ onSelect = () => {} }) {
   const [storedNames, setStoredNames] = useLocalStorage('names', null);
 
   const handleDelete = useCallback(

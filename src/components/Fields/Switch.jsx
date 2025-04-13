@@ -10,14 +10,7 @@ Switch.propTypes = {
   value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 };
 
-Switch.defaultProps = {
-  id: null,
-  label: null,
-  checked: false,
-  value: 'on',
-};
-
-function Switch({ id, name, label, checked, value, ...props }) {
+function Switch({ id = null, name, label = null, checked = false, value = 'on', ...props }) {
   const derivedId = id || _kebabCase(name);
   const derivedLabel = label || sentenceCase(name);
 

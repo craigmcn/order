@@ -1,7 +1,6 @@
-import { createContext, useState } from 'react';
+import { useState } from 'react';
 import PropTypes from 'prop-types';
-
-export const NamesContext = createContext(null);
+import { NamesContext } from './NamesContext';
 
 const NamesProvider = ({ children }) => {
   const [currentNames, setCurrentNames] = useState(null);

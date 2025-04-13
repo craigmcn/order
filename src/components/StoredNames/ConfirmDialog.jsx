@@ -11,14 +11,7 @@ ConfirmDialog.propTypes = {
   confirmAction: PropTypes.func,
 };
 
-ConfirmDialog.defaultProps = {
-  additionalText: null,
-  open: false,
-  closeAction: () => {},
-  confirmAction: () => {},
-};
-
-export default function ConfirmDialog({ additionalText, open, closeAction, confirmAction }) {
+export default function ConfirmDialog({ additionalText = null, open = false, closeAction = () => {}, confirmAction = () => {} }) {
   const cancelButtonRef = useRef(null);
 
   return (

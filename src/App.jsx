@@ -1,4 +1,4 @@
-import NamesProvider from './contexts/NamesContext';
+import NamesProvider from './contexts/NamesProvider';
 import Header from './components/Header';
 import Form from './components/Form';
 import Results from './components/Results';

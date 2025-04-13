@@ -13,20 +13,13 @@ Textarea.propTypes = {
   ]),
 };
 
-Textarea.defaultProps = {
-  id: null,
-  className: '',
-  autoResize: false,
-  innerRef: null,
-};
-
 const resizeInput = (e) => {
   const el = e.target;
   el.style.height = 'auto';
   el.style.height = `${el.scrollHeight + 2}px`; // +2 to fix ???
 };
 
-function Textarea({ id, name, className, autoResize, innerRef, ...props }) {
+function Textarea({ id = null, name, className = '', autoResize = false, innerRef = null, ...props }) {
   const derivedId = id || _kebabCase(name);
   const ref = useRef();
   const thisRef = innerRef || ref;
