@@ -9,6 +9,18 @@ export default mergeConfig(
       environment: 'jsdom',
       globals: true,
       setupFiles: './tests/setup.js',
+      outputFile: './tests/test-report.json',
+      coverage: {
+        reporter: ['text', 'json', 'html'],
+        exclude: [
+          'node_modules/**',
+          'coverage',
+          'dist/**',
+          '**/*{.,-}spec.ts',
+          '**/{vite,vitest,tailwind}.config.js'
+        ],
+        extension: ['.js', '.jsx']
+      }
     },
   }),
 );
