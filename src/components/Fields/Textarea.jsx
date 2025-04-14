@@ -7,10 +7,7 @@ Textarea.propTypes = {
   name: PropTypes.string.isRequired,
   className: PropTypes.string,
   autoResize: PropTypes.bool,
-  innerRef: PropTypes.oneOfType([
-    PropTypes.func,
-    PropTypes.shape({ current: PropTypes.instanceOf(HTMLTextAreaElement) }),
-  ]),
+  innerRef: PropTypes.shape({ current: PropTypes.instanceOf(HTMLTextAreaElement) }),
 };
 
 const HEIGHT_ADJUSTMENT_OFFSET = 2; // Offset to account for padding/border discrepancies in textarea height calculation.
