@@ -13,10 +13,12 @@ Textarea.propTypes = {
   ]),
 };
 
+const HEIGHT_ADJUSTMENT_OFFSET = 2; // Offset to account for padding/border discrepancies in textarea height calculation.
+
 const resizeInput = (e) => {
   const el = e.target;
   el.style.height = 'auto';
-  el.style.height = `${el.scrollHeight + 2}px`; // +2 to fix ???
+  el.style.height = `${el.scrollHeight + HEIGHT_ADJUSTMENT_OFFSET}px`;
 };
 
 function Textarea({ id = null, name, className = '', autoResize = false, innerRef = null, ...props }) {
