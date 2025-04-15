@@ -1,6 +1,9 @@
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
+import tailwindcss from '@tailwindcss/vite';
 import eslint from 'vite-plugin-eslint';
 
-export default {
+export default defineConfig({
   base: './',
   build: {
     rollupOptions: {
@@ -13,5 +16,9 @@ export default {
   server: {
     port: 5510,
   },
-  plugins: [eslint()],
-};
+  plugins: [
+    react(), 
+    tailwindcss(),
+    eslint()
+  ],
+});

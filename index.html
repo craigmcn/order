@@ -1,83 +1,30 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <title>Generate Speaking Order</title>
-  </head>
-  <body class="dark:bg-slate-900">
-    <main class="container max-w-lg min-w-min mx-auto mt-8 px-4">
-      <h1
-        class="my-8 text-2xl font-thin uppercase tracking-wider text-slate-700 dark:text-slate-300"
-      >
-        Generate Speaking Order
-      </h1>
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Generate Speaking Order</title>
 
-      <form id="generate">
-        <label class="block text-slate-600 dark:text-slate-400 mb-1" for="names"
-          >Participant names</label
-        >
-        <textarea
-          id="names"
-          name="names"
-          data-autoresize
-          class="w-full p-2 text-slate-700 dark:text-slate-300 border rounded border-slate-400 outline-none outline-offset-1 focus:outline-orange-500/50 resize-none"
-          rows="2"
-          cols="50"
-        ></textarea>
+  <script>
+    (() => !window.location.pathname.endsWith("/") && window.location.replace(window.location.href + "/"))()
 
-        <label class="w-auto block text-slate-600 dark:text-slate-400">
-          <input
-            id="remember"
-            class="mr-1 leading-tight accent-green-600 rounded-sm outline-none focus:outline-orange-500/50"
-            type="checkbox"
-          />
-          <span class="text-sm"> Remember this list </span>
-        </label>
+    // https://tailwindcss.com/docs/dark-mode#supporting-system-preference-and-manual-selection
+    // On page load or when changing themes, best to add inline in `head` to avoid FOUC
+    if ((localStorage.theme && typeof localStorage.theme === "string" && JSON.parse(localStorage.theme) === 'dark')
+      || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)
+    ) {
+      document.documentElement.classList.add('dark')
+    } else {
+      document.documentElement.classList.remove('dark')
+    }
+  </script>
+</head>
 
-        <button
-          class="block w-full mt-4 bg-orange-500 dark:bg-orange-600 hover:bg-orange-600 dark:hover:bg-orange-700 focus:bg-orange-600 dark:focus:bg-orange-700 text-orange-50 dark:text-orange-100 py-2 px-4 border-b-4 border-orange-600 dark:border-orange-700 rounded hover:border-orange-700 dark:hover:border-orange-800 focus:border-orange-700 dark:focus:border-orange-800 outline-none focus:outline-4 outline-offset-0 focus:outline-orange-500/50"
-          type="submit"
-        >
-          Generate
-        </button>
-      </form>
+<body>
+  <div id="root"></div>
+  <script type="module" src="/src/main.jsx"></script>
+</body>
 
-      <div
-        class="group relative mx-auto mt-8 py-3 px-5 text-2xl text-slate-700 dark:text-slate-300 border rounded border-slate-300 dark:border-slate-700 focus:border-slate-400 dark:focus:border-slate-600 hidden outline-none"
-        tabindex="0"
-      >
-        <button
-          class="absolute top-0 right-0 z-10 mt-1 mr-1 p-1 bg-white dark:bg-slate-900 bg-opacity-75 dark:bg-opacity-50 backdrop-blur-sm text-slate-600 dark:text-slate-400 rounded-sm invisible group-hover:visible group-focus-within:visible outline-none outline-offset-1 focus:outline-orange-500/50"
-          type="button"
-          title="Copy"
-          data-copy="speaking-order"
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            height="1em"
-            viewBox="0 0 512 512"
-            class="fill-current"
-          >
-            <!--! Font Awesome Pro 6.4.0 by @fontawesome - https://fontawesome.com
-              License - https://fontawesome.com/license (Commercial License)
-              Copyright 2023 Fonticons, Inc. -->
-            <path
-              d="M448 368H288c-26.5 0-48-21.5-48-48V64c0-26.5 21.5-48 48-48H396.1c8.5 0 16.6 3.4 22.6 9.4l67.9 67.9c6 6
-                9.4 14.1 9.4 22.6V320c0 26.5-21.5 48-48 48zM288 384H448c35.3 0 64-28.7
-                64-64V115.9c0-12.7-5.1-24.9-14.1-33.9L430.1 14.1c-9-9-21.2-14.1-33.9-14.1H288c-35.3 0-64 28.7-64
-                64V320c0 35.3 28.7 64 64 64zM64 128c-35.3 0-64 28.7-64 64V448c0 35.3 28.7 64 64 64H224c35.3 0 64-28.7
-                64-64V416H272v32c0 26.5-21.5 48-48 48H64c-26.5 0-48-21.5-48-48V192c0-26.5 21.5-48 48-48H192V128H64z"
-            />
-          </svg>
-        </button>
-
-        <p id="speaking-order"></p>
-      </div>
-    </main>
-
-    <script type="module" src="/main.js"></script>
-  </body>
 </html>
