@@ -1,6 +1,6 @@
-import { Fragment, useRef } from 'react';
+import { useRef } from 'react';
 import PropTypes from 'prop-types';
-import { Dialog, Transition } from '@headlessui/react';
+import { Dialog, DialogPanel, DialogTitle, Transition, TransitionChild } from '@headlessui/react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { byPrefixAndName } from '@awesome.me/kit-84f13ff524/icons';
 
@@ -15,10 +15,9 @@ export default function ConfirmDialog({ additionalText = null, open = false, clo
   const cancelButtonRef = useRef(null);
 
   return (
-    <Transition.Root show={open} as={Fragment}>
+    <Transition show={open}>
       <Dialog as="div" className="relative z-10" initialFocus={cancelButtonRef} onClose={closeAction}>
-        <Transition.Child
-          as={Fragment}
+        <TransitionChild
           enter="ease-out duration-300"
           enterFrom="opacity-0"
           enterTo="opacity-100"
@@ -27,12 +26,11 @@ export default function ConfirmDialog({ additionalText = null, open = false, clo
           leaveTo="opacity-0"
         >
           <div className="fixed inset-0 bg-slate-500 bg-opacity-75 transition-opacity" />
-        </Transition.Child>
+        </TransitionChild>
 
         <div className="fixed inset-0 z-10 w-screen overflow-y-auto">
           <div className="flex justify-center p-4 text-center sm:items-center sm:p-0">
-            <Transition.Child
-              as={Fragment}
+            <TransitionChild
               enter="ease-out duration-300"
               enterFrom="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
               enterTo="opacity-100 translate-y-0 sm:scale-100"
@@ -40,24 +38,24 @@ export default function ConfirmDialog({ additionalText = null, open = false, clo
               leaveFrom="opacity-100 translate-y-0 sm:scale-100"
               leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
             >
-              <Dialog.Panel className="relative transform overflow-hidden rounded-lg text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
+              <DialogPanel className="relative transform overflow-hidden rounded-lg text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
                 <div className="bg-white dark:bg-slate-700 px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
                   <div className="sm:flex sm:items-start">
                     <div className="mx-auto flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-red-100 dark:bg-red-200 sm:mx-0 sm:h-10 sm:w-10">
                       <FontAwesomeIcon
-                        icon={byPrefixAndName.fal['exclamation-triangle']}
+                        icon={byPrefixAndName.fal['triangle-exclamation']}
                         className="h-6 w-6 text-red-600 dark:text-red-700"
                         aria-hidden="true"
                       />
                     </div>
                     <div className="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left">
-                      <Dialog.Title
+                      <DialogTitle
                         as="h3"
                         className="text-base font-semibold leading-6 text-slate-900 dark:text-slate-300"
                         data-testid="confirm-dialog-title"
                       >
                         Delete stored list
-                      </Dialog.Title>
+                      </DialogTitle>
                       <div className="mt-2">
                         <p className="text-sm text-slate-500 dark:text-slate-200">
                           Are you sure you want to delete this stored list?
@@ -91,11 +89,11 @@ export default function ConfirmDialog({ additionalText = null, open = false, clo
                     Cancel
                   </button>
                 </div>
-              </Dialog.Panel>
-            </Transition.Child>
+              </DialogPanel>
+            </TransitionChild>
           </div>
         </div>
       </Dialog>
-    </Transition.Root>
+    </Transition>
   );
 }
