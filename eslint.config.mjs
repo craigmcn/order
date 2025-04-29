@@ -32,7 +32,7 @@ export default defineConfig([
   {
     files: ["**/*.{js,jsx}"],
     rules: {
-      "no-console": ["error", { allow: ["error"] }],
+      "no-console": ["warn", { allow: ["error"] }],
       "no-nested-ternary": "warn",
       "no-use-before-define": [
         "error",

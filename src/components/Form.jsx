@@ -15,6 +15,7 @@ function Form() {
   const { currentNames, setCurrentNames } = useContext(NamesContext) || {};
   const [, setStoredNames] = useLocalStorage('names', undefined);
   const [error, setError] = useState(null);
+  const [remember, setRemember] = useState(false);
   const textareaRef = useRef();
 
   const uniqueId = useMemo(() => currentNames?.id ?? uuid4(), [currentNames?.id]);
@@ -22,6 +23,7 @@ function Form() {
   useEffect(() => {
     if (!currentNames) return;
 
+    setRemember(!!currentNames.id);
     const namesArray = currentNames.names;
 
     if (textareaRef.current) {
@@ -34,6 +36,10 @@ function Form() {
       setError(null);
     }
   }, 300);
+
+  const handleRememberChange = (e) => {
+    setRemember(e.target.checked);
+  };
 
   const handleReset = () => {
     setCurrentNames(null);
@@ -53,7 +59,7 @@ function Form() {
     let currentId = null;
 
     if (e.target.remember.checked) {
-      currentId = e.target.remember.value;
+      currentId = e.target.new?.checked ? e.target.new.value : e.target.remember.value;
       setStoredNames((storedNames) => ({ ...storedNames, [currentId]: namesArray }));
     }
     setCurrentNames({ id: currentId, names: namesArray });
@@ -86,8 +92,12 @@ function Form() {
         {error && <p className="text-sm text-red-600 dark:text-red-400">{error}</p>}
       </div>
 
-      <div>
-        <Switch name="remember" label="Remember this list" checked={!!currentNames?.id} value={uniqueId} />
+      <div className="flex items-center justify-between sm:justify-start gap-x-4">
+        <Switch name="remember" label="Remember this list" checked={!!currentNames?.id} value={uniqueId} onClick={handleRememberChange} />
+
+        {(remember && !!currentNames?.id) && (
+          <Switch name="new" label="New list" value={uuid4()} />
+        )}
       </div>
 
       <button

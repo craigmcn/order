@@ -1,4 +1,4 @@
-import { Fragment, useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useMediaQuery } from '@uidotdev/usehooks';
 import { Transition } from '@headlessui/react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -52,7 +52,6 @@ function Aside() {
       </div>
 
       <Transition
-        as={Fragment}
         show={offCanvas}
         enter="transition-width duration-150"
         enterFrom="w-0"
