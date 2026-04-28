@@ -1,7 +1,7 @@
 import { describe, expect, it, vi } from 'vitest';
 import { render, screen } from '@testing-library/react';
-import ListItem from '../../../components/StoredNames/ListItem';
-import { NamesContext } from '../../../contexts/NamesContext';
+import ListItem from './ListItem';
+import { NamesContext } from '../../contexts/NamesContext';
 
 describe('ListItem component', () => {
   const contextValue = { currentNames: { id: '1', names: ['John', 'Jane'] }, setCurrentNames: vi.fn() };

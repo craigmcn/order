@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { render, screen } from '@testing-library/react';
-import Header from '../../components/Header';
+import Header from './Header';
 
 describe('Header component', () => {
   it('renders without crashing', () => {

@@ -1,9 +1,9 @@
 import { describe, expect, it, vi } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { NamesContext } from '../../contexts/NamesContext';
-import Results from '../../components/Results';
-import { copyToClipboard } from '../../utils';
+import { NamesContext } from '../contexts/NamesContext';
+import Results from './Results';
+import { copyToClipboard } from '../utils';
 
 Object.defineProperty(globalThis.navigator, 'clipboard', {
   value: { writeText: vi.fn() },

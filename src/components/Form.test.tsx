@@ -1,7 +1,7 @@
 import { describe, expect, it, vi } from 'vitest';
 import { render, screen, fireEvent } from '@testing-library/react';
-import { NamesContext } from '../../contexts/NamesContext';
-import Form from '../../components/Form';
+import { NamesContext } from '../contexts/NamesContext';
+import Form from './Form';
 
 describe('Form component', () => {
   it('renders without crashing', () => {

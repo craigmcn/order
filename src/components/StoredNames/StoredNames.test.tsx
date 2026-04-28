@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { render, screen } from '@testing-library/react';
-import StoredNames from '../../../components/StoredNames/StoredNames';
+import StoredNames from './StoredNames';
 
 describe('StoredNames component', () => {
   it('renders without crashing', () => {

@@ -1,8 +1,8 @@
 import { describe, expect, it } from 'vitest';
 import { render, screen, fireEvent } from '@testing-library/react';
 import _kebabCase from 'lodash/kebabCase';
-import Switch from '../../../components/Fields/Switch';
-import { sentenceCase } from '../../../utils';
+import Switch from './Switch';
+import { sentenceCase } from '../../utils';
 
 describe('Switch component', () => {
   it('renders without crashing', () => {

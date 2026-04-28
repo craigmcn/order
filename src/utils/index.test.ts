@@ -1,5 +1,5 @@
 import { describe, expect, it, vi } from 'vitest';
-import { copyToClipboard, generate, joinAnd, parseNames, sentenceCase, shuffle } from '../../utils';
+import { copyToClipboard, generate, joinAnd, parseNames, sentenceCase, shuffle } from '.';
 
 describe('sentenceCase function', () => {
   it('converts a string to sentence case', () => {
@@ -127,62 +127,52 @@ describe('joinAnd function', () => {
 // }));
 
 describe('generate function', () => {
-  // beforeAll(() => {
-  //   vi.mock('../../utils', () => ({
-  //     joinAnd: vi.fn(),
-  //     shuffle: vi.fn(),
-  //   }));
-  // });
-
-  // beforeEach(() => {
-  //   vi.clearAllMocks();
-  // });
-
   it('returns null if names is not an array', () => {
     expect(generate('not an array')).toBeNull();
   });
 
-  // it('returns the joined string with a prefix for an empty array', () => {
-  //   shuffle.mockReturnValue([]);
-  //   joinAnd.mockReturnValue('');
-  //   expect(generate([], { prefix: 'Names:', separator: ',', lastSeparator: 'and', oxfordComma: false })).toBe('Names: ');
-  // });
+  it('returns null for a non-array value', () => {
+    expect(generate(42)).toBeNull();
+  });
 
-  // it('returns the joined string with a prefix for an array with one element', () => {
-  //   shuffle.mockReturnValue(['apple']);
-  //   joinAnd.mockReturnValue('apple');
-  //   expect(generate(['apple'], { prefix: 'Names:', separator: ',', lastSeparator: 'and', oxfordComma: false })).toBe('Names: apple');
-  // });
+  it('returns a string for an empty array', () => {
+    const result = generate([]);
+    expect(typeof result).toBe('string');
+  });
 
-  // it('returns the joined string with a prefix for an array with two elements', () => {
-  //   shuffle.mockReturnValue(['apple', 'banana']);
-  //   joinAnd.mockReturnValue('apple and banana');
-  //   expect(generate(['apple', 'banana'], { prefix: 'Names:', separator: ',', lastSeparator: 'and', oxfordComma: false })).toBe('Names: apple and banana');
-  // });
+  it('includes the prefix in the result', () => {
+    const result = generate(['Alice'], { prefix: 'Order:' });
+    expect(result).toMatch(/^Order:/);
+  });
 
-  // it('returns the joined string with a prefix for an array with more than two elements', () => {
-  //   shuffle.mockReturnValue(['apple', 'banana', 'cherry']);
-  //   joinAnd.mockReturnValue('apple, banana, and cherry');
-  //   expect(generate(['apple', 'banana', 'cherry'], { prefix: 'Names:', separator: ',', lastSeparator: 'and', oxfordComma: true })).toBe('Names: apple, banana, and cherry');
-  // });
+  it('includes all names in the result', () => {
+    const names = ['Alice', 'Bob', 'Carol'];
+    const result = generate(names);
+    expect(result).toContain('Alice');
+    expect(result).toContain('Bob');
+    expect(result).toContain('Carol');
+  });
 
-  // it('uses custom separators and lastSeparator', () => {
-  //   shuffle.mockReturnValue(['apple', 'banana', 'cherry']);
-  //   joinAnd.mockReturnValue('apple; banana& cherry');
-  //   expect(generate(['apple', 'banana', 'cherry'], { prefix: 'Names:', separator: ';', lastSeparator: '&', oxfordComma: false })).toBe('Names: apple; banana& cherry');
-  // });
+  it('uses a custom prefix', () => {
+    const result = generate(['Alice'], { prefix: 'Speaking order:' });
+    expect(result).toMatch(/^Speaking order:/);
+  });
 
-  // it('uses the oxfordComma option correctly', () => {
-  //   shuffle.mockReturnValue(['apple', 'banana', 'cherry']);
-  //   joinAnd.mockReturnValue('apple, banana, and cherry');
-  //   expect(generate(['apple', 'banana', 'cherry'], { prefix: 'Names:', separator: ',', lastSeparator: 'and', oxfordComma: true })).toBe('Names: apple, banana, and cherry');
-  // });
+  it('uses a custom lastSeparator', () => {
+    const result = generate(['Alice', 'Bob'], { lastSeparator: 'then' });
+    expect(result).toContain('then');
+  });
 
-  // it('uses the prefix option correctly', () => {
-  //   shuffle.mockReturnValue(['apple', 'banana', 'cherry']);
-  //   joinAnd.mockReturnValue('apple, banana, and cherry');
-  //   expect(generate(['apple', 'banana', 'cherry'], { prefix: 'Fruits:', separator: ',', lastSeparator: 'and', oxfordComma: true })).toBe('Fruits: apple, banana, and cherry');
-  // });
+  it('uses the oxford comma option', () => {
+    const result = generate(['Alice', 'Bob', 'Carol'], { separator: ',', lastSeparator: 'and', oxfordComma: true });
+    expect(result).toMatch(/,\s+and\s+/);
+  });
+
+  it('returns a different order on repeated calls (shuffle)', () => {
+    const names = ['Alice', 'Bob', 'Carol', 'Dave', 'Eve'];
+    const results = new Set(Array.from({ length: 20 }, () => generate(names)));
+    expect(results.size).toBeGreaterThan(1);
+  });
 });
 
 Object.defineProperty(globalThis.navigator, 'clipboard', {

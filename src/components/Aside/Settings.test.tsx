@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import { describe, it, expect } from 'vitest';
-import Settings from '../../../components/Aside/Settings';
+import Settings from './Settings';
 // import { useLocalStorage, useMediaQuery } from '@uidotdev/usehooks';
 // import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 // import { byPrefixAndName } from '@awesome.me/kit-84f13ff524/icons';

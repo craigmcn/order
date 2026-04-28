@@ -1,7 +1,6 @@
-// FILEPATH: /Users/craigmcnaughton/Web/order/src/components/ConfirmDialog.test.jsx
 import { describe, expect, it, vi } from 'vitest';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
-import ConfirmDialog from '../../../components/StoredNames/ConfirmDialog';
+import ConfirmDialog from './ConfirmDialog';
 
 // Mock ResizeObserver
 class ResizeObserver {

@@ -1,7 +1,7 @@
 import { afterAll, afterEach, beforeAll, describe, expect, it, vi } from 'vitest';
 import { render, screen, fireEvent } from '@testing-library/react';
 import _kebabCase from 'lodash/kebabCase';
-import Textarea from '../../../components/Fields/Textarea';
+import Textarea from './Textarea';
 
 describe('Textarea component', () => {
   let consoleSpy: ReturnType<typeof vi.spyOn>;
