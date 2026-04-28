@@ -57,3 +57,12 @@ Icons are Font Awesome Light (`fal`) from a private kit (`@awesome.me/kit-84f13f
 ## ESLint
 
 Config: `eslint.config.mjs` (ESLint 9 flat config, `typescript-eslint` recommended rules). Run `yarn lint` — no auto-fix flag, intentional.
+
+## Known follow-up items
+
+These are known issues identified in code review — fix them as you touch the relevant files, or in a dedicated cleanup PR:
+
+- **`tailwind.config.js` is vestigial** — Tailwind v4 with the Vite plugin auto-discovers content; the file does nothing and can be deleted.
+- **Unused devDependencies** — `test-console`, `eslint-plugin-import`, and `eslint-plugin-promise` are present in `package.json` but not used. Remove them.
+- **`handleNamesChange` throttle is broken** — in [src/components/Form.tsx](src/components/Form.tsx), `_throttle(fn, 300)` is called inline and creates a new throttled function on every render, resetting the 300 ms window each time. Wrap it in `useMemo(() => _throttle(...), [error])` or extract it to module scope.
+- **`Form.test.tsx` missing submit coverage** — [src/components/Form.test.tsx](src/components/Form.test.tsx) tests read and reset but not form submission (the path that calls `parseNames` and `setCurrentNames`). Add a test for the happy path and the empty-submit error case.
