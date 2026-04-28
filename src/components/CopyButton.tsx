@@ -1,19 +1,18 @@
 import { useState } from 'react';
-import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { byPrefixAndName } from '@awesome.me/kit-84f13ff524/icons';
 import { copyToClipboard } from '../utils';
 
-CopyButton.propTypes = {
-  text: PropTypes.string,
-};
+interface ICopyButtonProps {
+  text: string | null;
+}
 
-function CopyButton({ text =  '' }) {
+function CopyButton({ text = '' }: ICopyButtonProps) {
   const [copied, setCopied] = useState(false);
 
-  const handleCopy = (e) => {
+  const handleCopy = (e: React.MouseEvent<HTMLButtonElement>) => {
     const copyButton = e.currentTarget;
-    copyToClipboard(text);
+    copyToClipboard(text ?? '');
     setCopied(true);
     setTimeout(() => {
       copyButton.blur();
@@ -22,7 +21,6 @@ function CopyButton({ text =  '' }) {
   };
 
   return (
-        
     <button
       className={`
         absolute top-0 right-0 z-10

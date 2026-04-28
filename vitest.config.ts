@@ -8,18 +8,17 @@ export default mergeConfig(
     test: {
       environment: 'jsdom',
       globals: true,
-      setupFiles: './tests/setup.js',
-      outputFile: './tests/test-report.json',
+      setupFiles: './tests/setup.ts',
       coverage: {
         reporter: ['text', 'json', 'html'],
         exclude: [
           'node_modules/**',
           'coverage/**',
           'dist/**',
-          '**/{vite,vitest,tailwind}.config.js'
+          '**/{vite,vitest,tailwind}.config.{js,ts}',
         ],
-        extension: ['.js', '.jsx']
-      }
+        include: ['src/**/*.{ts,tsx}'],
+      },
     },
   }),
 );

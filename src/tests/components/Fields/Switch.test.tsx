@@ -19,7 +19,7 @@ describe('Switch component', () => {
   it('changes state when clicked', () => {
     const name = 'test';
     render(<Switch name={name} />);
-    const inputElement = screen.getByRole('checkbox');
+    const inputElement = screen.getByRole('checkbox') as HTMLInputElement;
     expect(inputElement.checked).toEqual(false);
     fireEvent.click(inputElement);
     expect(inputElement.checked).toEqual(true);

@@ -9,14 +9,12 @@ import { byPrefixAndName } from '@awesome.me/kit-84f13ff524/icons';
 import Textarea from './Fields/Textarea';
 import Switch from './Fields/Switch';
 
-Form.propTypes = {};
-
 function Form() {
-  const { currentNames, setCurrentNames } = useContext(NamesContext) || {};
-  const [, setStoredNames] = useLocalStorage('names', undefined);
-  const [error, setError] = useState(null);
+  const { currentNames, setCurrentNames } = useContext(NamesContext);
+  const [, setStoredNames] = useLocalStorage<Record<string, string[]> | null>('names', null);
+  const [error, setError] = useState<string | null>(null);
   const [remember, setRemember] = useState(false);
-  const textareaRef = useRef();
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   const uniqueId = useMemo(() => currentNames?.id ?? uuid4(), [currentNames?.id]);
 
@@ -31,36 +29,42 @@ function Form() {
     }
   }, [currentNames]);
 
-  const handleNamesChange = _throttle((e) => {
+  const handleNamesChange = _throttle((e: React.ChangeEvent<HTMLTextAreaElement>) => {
     if (error && e.target.value) {
       setError(null);
     }
   }, 300);
 
-  const handleRememberChange = (e) => {
+  const handleRememberChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setRemember(e.target.checked);
   };
 
   const handleReset = () => {
     setCurrentNames(null);
     setError(null);
-    textareaRef.current.value = '';
+    if (textareaRef.current) {
+      textareaRef.current.value = '';
+    }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    if (!e.target.names.value) {
+    const form = e.currentTarget;
+    const namesField = form.elements.namedItem('names') as HTMLTextAreaElement;
+    if (!namesField.value) {
       setError('Please enter at least one name.');
       return;
     }
 
-    const namesArray = parseNames(e.target.names.value);
-    let currentId = null;
+    const namesArray = parseNames(namesField.value);
+    let currentId: string | null = null;
 
-    if (e.target.remember.checked) {
-      currentId = e.target.new?.checked ? e.target.new.value : e.target.remember.value;
-      setStoredNames((storedNames) => ({ ...storedNames, [currentId]: namesArray }));
+    const rememberField = form.elements.namedItem('remember') as HTMLInputElement;
+    if (rememberField.checked) {
+      const newField = form.elements.namedItem('new') as HTMLInputElement | null;
+      currentId = newField?.checked ? newField.value : rememberField.value;
+      setStoredNames((storedNames) => ({ ...storedNames, [currentId!]: namesArray }));
     }
     setCurrentNames({ id: currentId, names: namesArray });
   };
@@ -93,7 +97,7 @@ function Form() {
       </div>
 
       <div className="flex items-center justify-between sm:justify-start gap-x-4">
-        <Switch name="remember" label="Remember this list" checked={!!currentNames?.id} value={uniqueId} onClick={handleRememberChange} />
+        <Switch name="remember" label="Remember this list" checked={!!currentNames?.id} value={uniqueId} onChange={handleRememberChange} />
 
         {(remember && !!currentNames?.id) && (
           <Switch name="new" label="New list" value={uuid4()} />

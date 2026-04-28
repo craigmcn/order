@@ -5,23 +5,23 @@ import { NamesContext } from '../../contexts/NamesContext';
 import Results from '../../components/Results';
 import { copyToClipboard } from '../../utils';
 
-// Mock the copyToClipboard function
-globalThis.navigator.clipboard = {
-  writeText: vi.fn(),
-};
+Object.defineProperty(globalThis.navigator, 'clipboard', {
+  value: { writeText: vi.fn() },
+  configurable: true,
+});
 
 describe('Results component', () => {
   it('renders without crashing', () => {
     render(
-      <NamesContext.Provider value={{ currentNames: ['John', 'Jane'] }}>
+      <NamesContext.Provider value={{ currentNames: null, setCurrentNames: vi.fn() }}>
         <Results />
       </NamesContext.Provider>,
     );
   });
 
-  it('renders the results', () => {
+  it('renders the results element', () => {
     render(
-      <NamesContext.Provider value={{ currentNames: ['John', 'Jane'] }}>
+      <NamesContext.Provider value={{ currentNames: null, setCurrentNames: vi.fn() }}>
         <Results />
       </NamesContext.Provider>,
     );
@@ -32,20 +32,20 @@ describe('Results component', () => {
   it('copies the results to clipboard when copy button is clicked', async () => {
     const currentNames = { id: '1', names: ['John', 'Jane', 'Doe'] };
     render(
-      <NamesContext.Provider value={{ currentNames }}>
+      <NamesContext.Provider value={{ currentNames, setCurrentNames: vi.fn() }}>
         <Results />
       </NamesContext.Provider>,
     );
     const copyButton = screen.getByRole('button', { name: /copy/i });
     userEvent.click(copyButton);
 
-    await copyToClipboard();
+    await copyToClipboard('test');
     expect(globalThis.navigator.clipboard.writeText).toHaveBeenCalled();
   });
 
   it('renders the copy icon in the copy button', () => {
     render(
-      <NamesContext.Provider value={{ currentNames: { id: 1, names: ['John', 'Jane'] } }}>
+      <NamesContext.Provider value={{ currentNames: { id: '1', names: ['John', 'Jane'] }, setCurrentNames: vi.fn() }}>
         <Results />
       </NamesContext.Provider>,
     );
@@ -56,7 +56,7 @@ describe('Results component', () => {
 
   it('renders the results from context', () => {
     render(
-      <NamesContext.Provider value={{ currentNames: { id: 1, names: ['John', 'Jane'] } }}>
+      <NamesContext.Provider value={{ currentNames: { id: '1', names: ['John', 'Jane'] }, setCurrentNames: vi.fn() }}>
         <Results />
       </NamesContext.Provider>,
     );

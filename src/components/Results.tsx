@@ -2,12 +2,13 @@ import { useContext } from 'react';
 import { useLocalStorage } from '@uidotdev/usehooks';
 import { generate } from '../utils';
 import { DEFAULT_OPTIONS } from '../utils/constants';
+import type { IOptions } from '../utils/constants';
 import { NamesContext } from '../contexts/NamesContext';
 import CopyButton from './CopyButton';
 
 function Results() {
   const { currentNames } = useContext(NamesContext);
-  const [storedOptions] = useLocalStorage('options', null);
+  const [storedOptions] = useLocalStorage<Partial<IOptions> | null>('options', null);
   const localOptions = storedOptions ? { ...DEFAULT_OPTIONS, ...storedOptions } : DEFAULT_OPTIONS;
 
   const results = generate(currentNames?.names, localOptions);

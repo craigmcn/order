@@ -4,3 +4,5 @@ export const DEFAULT_OPTIONS = {
   lastSeparator: 'then',
   oxfordComma: false,
 };
+
+export type IOptions = typeof DEFAULT_OPTIONS;

@@ -1,23 +1,22 @@
 import { useCallback } from 'react';
-import PropTypes from 'prop-types';
 import { useLocalStorage } from '@uidotdev/usehooks';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { byPrefixAndName } from '@awesome.me/kit-84f13ff524/icons';
 import ListItem from './ListItem';
 
-StoredNames.propTypes = {
-  onSelect: PropTypes.func,
-};
+interface IStoredNamesProps {
+  onSelect?: () => void;
+}
 
-function StoredNames({ onSelect = () => {} }) {
-  const [storedNames, setStoredNames] = useLocalStorage('names', null);
+function StoredNames({ onSelect = () => {} }: IStoredNamesProps) {
+  const [storedNames, setStoredNames] = useLocalStorage<Record<string, string[]> | null>('names', null);
 
   const handleDelete = useCallback(
-    (id) => {
-      setStoredNames((storedNames) => {
-        const newStoredNames = { ...storedNames };
-        delete newStoredNames[id];
-        return newStoredNames;
+    (id: string) => {
+      setStoredNames((prev) => {
+        const next = { ...prev };
+        delete next[id];
+        return next;
       });
     },
     [setStoredNames],

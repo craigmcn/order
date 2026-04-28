@@ -6,11 +6,9 @@ import { byPrefixAndName } from '@awesome.me/kit-84f13ff524/icons';
 import StoredNames from '../StoredNames/StoredNames';
 import Settings from './Settings';
 
-Aside.propTypes = {};
-
 function Aside() {
   const [offCanvas, setOffCanvas] = useState(false);
-  const mdBreakpoint = useMediaQuery('(min-width: 768px)'); // Tailwind CSS `md` breakpoint
+  const mdBreakpoint = useMediaQuery('(min-width: 768px)');
 
   const closeOffCanvas = () => {
     if (mdBreakpoint) return;
@@ -55,9 +53,9 @@ function Aside() {
         show={offCanvas}
         enter="transition-width duration-150"
         enterFrom="w-0"
-        enterTo="w-80" // matches the width of the aside content
+        enterTo="w-80"
         leave="transition-width duration-200"
-        leaveFrom="w-80" // matches the width of the aside content
+        leaveFrom="w-80"
         leaveTo="w-0"
       >
         <aside

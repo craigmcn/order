@@ -3,11 +3,12 @@ import { useLocalStorage, useMediaQuery } from '@uidotdev/usehooks';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { byPrefixAndName } from '@awesome.me/kit-84f13ff524/icons';
 import { DEFAULT_OPTIONS } from '../../utils/constants';
+import type { IOptions } from '../../utils/constants';
 import Switch from '../Fields/Switch';
 
 function Settings() {
-  const [storedOptions, setStoredOptions] = useLocalStorage('options', null);
-  const [storedTheme, setStoredTheme] = useLocalStorage('theme', undefined);
+  const [storedOptions, setStoredOptions] = useLocalStorage<Partial<IOptions> | null>('options', null);
+  const [storedTheme, setStoredTheme] = useLocalStorage<string | undefined>('theme', undefined);
   const prefersDark = useMediaQuery('(prefers-color-scheme: dark)');
   const localOptions = storedOptions ? { ...DEFAULT_OPTIONS, ...storedOptions } : DEFAULT_OPTIONS;
 
@@ -21,16 +22,15 @@ function Settings() {
     }
   }, [prefersDark, storedTheme]);
 
-  const handleSettingsChange = (e) => {
+  const handleSettingsChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.type === 'checkbox') {
-      setStoredOptions((storedOptions) => ({ ...storedOptions, [e.target.name]: e.target.checked }));
+      setStoredOptions((prev) => ({ ...prev, [e.target.name]: e.target.checked }));
       return;
     }
-
-    setStoredOptions((storedOptions) => ({ ...storedOptions, [e.target.name]: e.target.value }));
+    setStoredOptions((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
-  const handleThemeChange = (e) => {
+  const handleThemeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { checked, value } = e.target;
     if (checked) {
       setStoredTheme(value === 'system' ? undefined : value);
@@ -93,7 +93,7 @@ function Settings() {
         </div>
 
         <div className="mt-1">
-          <Switch name="oxfordComma" checked={!!localOptions.oxfordComma} value="1" onClick={handleSettingsChange} />
+          <Switch name="oxfordComma" checked={!!localOptions.oxfordComma} value="1" onChange={handleSettingsChange} />
         </div>
       </div>
 

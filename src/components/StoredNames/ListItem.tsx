@@ -1,18 +1,17 @@
 import { useContext, useState } from 'react';
-import PropTypes from 'prop-types';
 import { NamesContext } from '../../contexts/NamesContext';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { byPrefixAndName } from '@awesome.me/kit-84f13ff524/icons';
 import ConfirmDialog from './ConfirmDialog';
 
-ListItem.propTypes = {
-  id: PropTypes.string.isRequired,
-  names: PropTypes.array.isRequired,
-  onSelect: PropTypes.func.isRequired,
-  onDelete: PropTypes.func.isRequired,
-};
+interface IListItemProps {
+  id: string;
+  names: string[];
+  onSelect: () => void;
+  onDelete: (id: string) => void;
+}
 
-function ListItem({ id, names, onSelect, onDelete }) {
+function ListItem({ id, names, onSelect, onDelete }: IListItemProps) {
   const { currentNames, setCurrentNames } = useContext(NamesContext);
   const [showConfirm, setShowConfirm] = useState(false);
   const displayNames = names?.map((v) => (v.includes(' ') ? `"${v}"` : v)).join(', ');

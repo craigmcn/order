@@ -1,16 +1,16 @@
-import PropTypes from 'prop-types';
+import type { InputHTMLAttributes } from 'react';
 import _kebabCase from 'lodash/kebabCase';
 import { sentenceCase } from '../../utils';
 
-Switch.propTypes = {
-  id: PropTypes.string,
-  name: PropTypes.string.isRequired,
-  label: PropTypes.string,
-  checked: PropTypes.bool,
-  value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-};
+interface ISwitchProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'id'> {
+  id?: string | null;
+  name: string;
+  label?: string | null;
+  checked?: boolean;
+  value?: string | number;
+}
 
-function Switch({ id = null, name, label = null, checked = false, value = 'on', ...props }) {
+function Switch({ id = null, name, label = null, checked = false, value = 'on', ...props }: ISwitchProps) {
   const derivedId = id || _kebabCase(name);
   const derivedLabel = label || sentenceCase(name);
 

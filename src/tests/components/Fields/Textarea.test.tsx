@@ -1,32 +1,22 @@
-import { afterAll, afterEach, describe, expect, it, vi } from 'vitest';
+import { afterAll, afterEach, beforeAll, describe, expect, it, vi } from 'vitest';
 import { render, screen, fireEvent } from '@testing-library/react';
 import _kebabCase from 'lodash/kebabCase';
 import Textarea from '../../../components/Fields/Textarea';
 
 describe('Textarea component', () => {
-  // Mock the console.error function to check if it gets called
-  const consoleError = console.error;
-  console.error = vi.fn();
+  let consoleSpy: ReturnType<typeof vi.spyOn>;
+
+  beforeAll(() => {
+    consoleSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
+  });
 
   afterEach(() => {
-    // Clear the mock after each test
-    console.error.mockClear();
+    consoleSpy.mockClear();
   });
 
   afterAll(() => {
-    // Restore the original console.error function after all tests
-    console.error = consoleError;
+    consoleSpy.mockRestore();
   });
-
-  // it('throws an error when no name prop is provided', () => {
-  //   render(<Textarea />);
-  //   expect(console.error).toHaveBeenCalled();
-  // });
-
-  // it('throws an error when invalid autoResize prop is provided', () => {
-  //   render(<Textarea name="test" autoResize="invalid" />);
-  //   expect(console.error).toHaveBeenCalled();
-  // });
 
   it('renders without crashing', () => {
     render(<Textarea />);

@@ -81,7 +81,7 @@ describe('shuffle function', () => {
   });
 
   it('returns an empty array if the input array is empty', () => {
-    const array = [];
+    const array: string[] = [];
     const result = shuffle(array);
     expect(result).toEqual([]);
   });
@@ -185,10 +185,10 @@ describe('generate function', () => {
   // });
 });
 
-// Mock the copyToClipboard function
-globalThis.navigator.clipboard = {
-  writeText: vi.fn(),
-};
+Object.defineProperty(globalThis.navigator, 'clipboard', {
+  value: { writeText: vi.fn() },
+  configurable: true,
+});
 
 describe('copyToClipboard function', () => {
   it('copies text to clipboard', async () => {

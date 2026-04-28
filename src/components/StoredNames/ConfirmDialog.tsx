@@ -1,18 +1,17 @@
 import { useRef } from 'react';
-import PropTypes from 'prop-types';
 import { Dialog, DialogPanel, DialogTitle, Transition, TransitionChild } from '@headlessui/react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { byPrefixAndName } from '@awesome.me/kit-84f13ff524/icons';
 
-ConfirmDialog.propTypes = {
-  additionalText: PropTypes.string,
-  open: PropTypes.bool,
-  closeAction: PropTypes.func,
-  confirmAction: PropTypes.func,
-};
+interface IConfirmDialogProps {
+  additionalText?: string | null;
+  open?: boolean;
+  closeAction?: () => void;
+  confirmAction?: () => void;
+}
 
-export default function ConfirmDialog({ additionalText = null, open = false, closeAction = () => {}, confirmAction = () => {} }) {
-  const cancelButtonRef = useRef(null);
+export default function ConfirmDialog({ additionalText = null, open = false, closeAction = () => {}, confirmAction = () => {} }: IConfirmDialogProps) {
+  const cancelButtonRef = useRef<HTMLButtonElement>(null);
 
   return (
     <Transition show={open}>
