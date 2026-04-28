@@ -1,23 +1,9 @@
-import { afterAll, afterEach, beforeAll, describe, expect, it, vi } from 'vitest';
+import { describe, expect, it } from 'vitest';
 import { render, screen, fireEvent } from '@testing-library/react';
 import _kebabCase from 'lodash/kebabCase';
 import Textarea from './Textarea';
 
 describe('Textarea component', () => {
-  let consoleSpy: ReturnType<typeof vi.spyOn>;
-
-  beforeAll(() => {
-    consoleSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
-  });
-
-  afterEach(() => {
-    consoleSpy.mockClear();
-  });
-
-  afterAll(() => {
-    consoleSpy.mockRestore();
-  });
-
   it('renders without crashing', () => {
     render(<Textarea />);
   });
