@@ -1,7 +1,6 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import tailwindcss from '@tailwindcss/vite';
-import eslint from 'vite-plugin-eslint';
 
 export default defineConfig({
   base: './',
@@ -17,8 +16,7 @@ export default defineConfig({
     port: 5510,
   },
   plugins: [
-    react(), 
+    react(),
     tailwindcss(),
-    eslint()
   ],
 });
