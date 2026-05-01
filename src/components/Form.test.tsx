@@ -1,6 +1,7 @@
 import { describe, expect, it, vi } from 'vitest';
 import { render, screen, fireEvent } from '@testing-library/react';
 import { NamesContext } from '../contexts/NamesContext';
+import { parseNames } from '../utils';
 import Form from './Form';
 
 describe('Form component', () => {
@@ -32,5 +33,27 @@ describe('Form component', () => {
     const textarea = screen.getByRole('textbox') as HTMLTextAreaElement;
     expect(textarea.value).toBe('');
     expect(setCurrentNames).toHaveBeenCalledWith(null);
+  });
+
+  it('calls setCurrentNames with parsed names on submit', () => {
+    const setCurrentNames = vi.fn();
+    render(
+      <NamesContext.Provider value={{ currentNames: null, setCurrentNames }}>
+        <Form />
+      </NamesContext.Provider>,
+    );
+    const textarea = screen.getByRole('textbox') as HTMLTextAreaElement;
+    fireEvent.change(textarea, { target: { value: 'Alice, Bob, Charlie' } });
+    fireEvent.click(screen.getByRole('button', { name: /generate/i }));
+    expect(setCurrentNames).toHaveBeenCalledWith({
+      id: null,
+      names: parseNames('Alice, Bob, Charlie'),
+    });
+  });
+
+  it('shows an error when submitted with no names', () => {
+    render(<Form />);
+    fireEvent.click(screen.getByRole('button', { name: /generate/i }));
+    expect(screen.getByText(/Please enter at least one name/i)).toBeInTheDocument();
   });
 });
