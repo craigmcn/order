@@ -56,4 +56,20 @@ describe('Form component', () => {
     fireEvent.click(screen.getByRole('button', { name: /generate/i }));
     expect(screen.getByText(/Please enter at least one name/i)).toBeInTheDocument();
   });
+
+  it('clears the error when re-submitted with names after an empty submit', () => {
+    const setCurrentNames = vi.fn();
+    render(
+      <NamesContext.Provider value={{ currentNames: null, setCurrentNames }}>
+        <Form />
+      </NamesContext.Provider>,
+    );
+    fireEvent.click(screen.getByRole('button', { name: /generate/i }));
+    expect(screen.getByText(/Please enter at least one name/i)).toBeInTheDocument();
+    const textarea = screen.getByRole('textbox') as HTMLTextAreaElement;
+    fireEvent.change(textarea, { target: { value: 'Alice, Bob' } });
+    fireEvent.click(screen.getByRole('button', { name: /generate/i }));
+    expect(screen.queryByText(/Please enter at least one name/i)).not.toBeInTheDocument();
+    expect(setCurrentNames).toHaveBeenCalledOnce();
+  });
 });
