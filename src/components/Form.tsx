@@ -29,11 +29,14 @@ function Form() {
     }
   }, [currentNames]);
 
-  const handleNamesChange = _throttle((e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    if (error && e.target.value) {
-      setError(null);
-    }
-  }, 300);
+  const handleNamesChange = useMemo(
+    () => _throttle((e: React.ChangeEvent<HTMLTextAreaElement>) => {
+      if (error && e.target.value) {
+        setError(null);
+      }
+    }, 300),
+    [error],
+  );
 
   const handleRememberChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setRemember(e.target.checked);
