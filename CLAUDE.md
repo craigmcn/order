@@ -5,7 +5,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ## Commands
 
 ```bash
-yarn dev          # Start dev server (default Vite port)
+yarn dev          # Start dev server at http://localhost:3090
 yarn build        # Type-check (tsc -b) then build to dist/
 yarn preview      # Preview the production build locally
 yarn lint         # ESLint on src/

@@ -13,7 +13,7 @@ export default defineConfig({
     },
   },
   server: {
-    port: 5510,
+    port: 3090,
   },
   plugins: [
     react(),
