@@ -69,3 +69,26 @@ Config: `.prettierrc` (`{}` — all defaults). Run `yarn format` to reformat, `y
 ## Husky
 
 Pre-commit hook (`.husky/pre-commit`) runs: `prettier --check`, `eslint src`, `tsc -b`, `vitest --run`. Install with `yarn install` (the `prepare` script runs Husky automatically).
+
+## Progress
+
+### Completed
+
+- **PR #4** — initial modernization: Node 24, Vite 6→8, JS→TypeScript (strict), ESLint 9 flat config, Vitest 4, 82 tests, `test.yml` CI, CLAUDE.md, branch protection
+- **PR #5** — follow-up: CODEOWNERS, README, remove unused deps (`test-console`, `eslint-plugin-import`, `eslint-plugin-promise`), delete `tailwind.config.js`, fix `handleNamesChange` throttle, add form tests (83 tests total)
+- **PR #6** — favicon (standard icon set pointing to parent-app assets), remove `eslint-plugin-n`, error-recovery form test, fix `<title>` ordering in `index.html`
+- **PR #7** — delete legacy `.eslintrc.cjs`, fix dev port 5510→3090 in `vite.config.ts`, bump Yarn 4.9.1→4.14.1
+- **PR #8 (open, 2026-05-07)** — Husky pre-commit hook, reset `.prettierrc` to `{}` (Prettier defaults), add `eslint-config-prettier`, remove `@stylistic/eslint-plugin-js`, add `format`/`format:check` scripts, `format:check` step in CI, full reformat
+
+### Outstanding
+
+- Merge PR #8 and confirm CI passes — after that, `order` is fully aligned with the cross-repo standard
+- No further planned changes specific to this repo
+
+### Key decisions
+
+- `.prettierrc` is `{}` — Prettier defaults apply (double quotes, 80-char print width, `trailingComma: "all"`); single quotes used previously are gone
+- `eslint-config-prettier` is the last entry in `eslint.config.mjs` — disables all ESLint rules that could conflict with Prettier formatting
+- `@stylistic/eslint-plugin-js` removed — was imported but no rules were actually using the `@stylistic/js/` prefix; formatting is Prettier's job
+- Husky hook uses `yarn tsc -b` (not bare `tsc -b`) — bare command relies on a global TypeScript install; `yarn` prefix resolves from `node_modules/.bin/`
+- `lint` script has no `--fix` flag — intentional; fixes must be deliberate, not automatic
