@@ -1,21 +1,21 @@
-import { describe, expect, it } from 'vitest';
-import { render, screen } from '@testing-library/react';
-import App from './App';
+import { describe, expect, it } from "vitest";
+import { render, screen } from "@testing-library/react";
+import App from "./App";
 
-describe('App component', () => {
-  it('renders without crashing', () => {
+describe("App component", () => {
+  it("renders without crashing", () => {
     render(<App />);
   });
 
-  it('renders the Header component', () => {
+  it("renders the Header component", () => {
     render(<App />);
     const headerElement = screen.getByText(/Generate Speaking Order/i);
     expect(headerElement).toBeInTheDocument();
   });
 
-  it('renders the Form component', () => {
+  it("renders the Form component", () => {
     render(<App />);
-    const formElement = screen.getByRole('form');
+    const formElement = screen.getByRole("form");
     expect(formElement).toBeInTheDocument();
   });
 
@@ -25,9 +25,9 @@ describe('App component', () => {
   //     expect(resultsElement).toBeInTheDocument();
   //   });
 
-  it('renders the Aside component', () => {
+  it("renders the Aside component", () => {
     render(<App />);
-    const toggleButton = screen.getByLabelText('Open settings menu');
+    const toggleButton = screen.getByLabelText("Open settings menu");
     expect(toggleButton).toBeInTheDocument();
   });
 });

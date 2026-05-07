@@ -1,9 +1,9 @@
-import { describe, expect, it } from 'vitest';
-import { render, screen } from '@testing-library/react';
-import Aside from './Aside';
+import { describe, expect, it } from "vitest";
+import { render, screen } from "@testing-library/react";
+import Aside from "./Aside";
 
-describe('Aside component', () => {
-  it('renders without crashing', () => {
+describe("Aside component", () => {
+  it("renders without crashing", () => {
     render(<Aside />);
   });
 

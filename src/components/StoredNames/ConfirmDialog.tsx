@@ -1,7 +1,13 @@
-import { useRef } from 'react';
-import { Dialog, DialogPanel, DialogTitle, Transition, TransitionChild } from '@headlessui/react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { byPrefixAndName } from '@awesome.me/kit-84f13ff524/icons';
+import { useRef } from "react";
+import {
+  Dialog,
+  DialogPanel,
+  DialogTitle,
+  Transition,
+  TransitionChild,
+} from "@headlessui/react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { byPrefixAndName } from "@awesome.me/kit-84f13ff524/icons";
 
 interface IConfirmDialogProps {
   additionalText?: string | null;
@@ -10,12 +16,22 @@ interface IConfirmDialogProps {
   confirmAction?: () => void;
 }
 
-export default function ConfirmDialog({ additionalText = null, open = false, closeAction = () => {}, confirmAction = () => {} }: IConfirmDialogProps) {
+export default function ConfirmDialog({
+  additionalText = null,
+  open = false,
+  closeAction = () => {},
+  confirmAction = () => {},
+}: IConfirmDialogProps) {
   const cancelButtonRef = useRef<HTMLButtonElement>(null);
 
   return (
     <Transition show={open}>
-      <Dialog as="div" className="relative z-10" initialFocus={cancelButtonRef} onClose={closeAction}>
+      <Dialog
+        as="div"
+        className="relative z-10"
+        initialFocus={cancelButtonRef}
+        onClose={closeAction}
+      >
         <TransitionChild
           enter="ease-out duration-300"
           enterFrom="opacity-0"
@@ -42,7 +58,7 @@ export default function ConfirmDialog({ additionalText = null, open = false, clo
                   <div className="sm:flex sm:items-start">
                     <div className="mx-auto flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-red-100 dark:bg-red-200 sm:mx-0 sm:h-10 sm:w-10">
                       <FontAwesomeIcon
-                        icon={byPrefixAndName.fal['triangle-exclamation']}
+                        icon={byPrefixAndName.fal["triangle-exclamation"]}
                         className="h-6 w-6 text-red-600 dark:text-red-700"
                         aria-hidden="true"
                       />
@@ -65,7 +81,8 @@ export default function ConfirmDialog({ additionalText = null, open = false, clo
                           </p>
                         )}
                         <p className="text-sm text-slate-500 dark:text-slate-200">
-                          The data will be permanently removed. This action cannot be undone.
+                          The data will be permanently removed. This action
+                          cannot be undone.
                         </p>
                       </div>
                     </div>

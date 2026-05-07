@@ -1,13 +1,13 @@
-import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
-import { render, screen, fireEvent, act } from '@testing-library/react';
-import CopyButton from './CopyButton';
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
+import { render, screen, fireEvent, act } from "@testing-library/react";
+import CopyButton from "./CopyButton";
 
-Object.defineProperty(globalThis.navigator, 'clipboard', {
+Object.defineProperty(globalThis.navigator, "clipboard", {
   value: { writeText: vi.fn().mockResolvedValue(undefined) },
   configurable: true,
 });
 
-describe('CopyButton component', () => {
+describe("CopyButton component", () => {
   beforeEach(() => {
     vi.useFakeTimers();
     vi.mocked(globalThis.navigator.clipboard.writeText).mockClear();
@@ -17,42 +17,56 @@ describe('CopyButton component', () => {
     vi.useRealTimers();
   });
 
-  it('renders without crashing', () => {
+  it("renders without crashing", () => {
     render(<CopyButton text="hello" />);
   });
 
-  it('renders the copy icon initially', () => {
+  it("renders the copy icon initially", () => {
     render(<CopyButton text="hello" />);
-    expect(screen.getByTestId('copy-button-icon')).toHaveAttribute('data-icon', 'copy');
+    expect(screen.getByTestId("copy-button-icon")).toHaveAttribute(
+      "data-icon",
+      "copy",
+    );
   });
 
-  it('copies text to clipboard when clicked', async () => {
+  it("copies text to clipboard when clicked", async () => {
     render(<CopyButton text="hello world" />);
-    fireEvent.click(screen.getByRole('button', { name: /copy/i }));
-    expect(globalThis.navigator.clipboard.writeText).toHaveBeenCalledWith('hello world');
+    fireEvent.click(screen.getByRole("button", { name: /copy/i }));
+    expect(globalThis.navigator.clipboard.writeText).toHaveBeenCalledWith(
+      "hello world",
+    );
   });
 
-  it('shows check icon after clicking', async () => {
+  it("shows check icon after clicking", async () => {
     render(<CopyButton text="hello" />);
-    fireEvent.click(screen.getByRole('button', { name: /copy/i }));
-    expect(screen.getByTestId('copy-button-icon')).toHaveAttribute('data-icon', 'circle-check');
+    fireEvent.click(screen.getByRole("button", { name: /copy/i }));
+    expect(screen.getByTestId("copy-button-icon")).toHaveAttribute(
+      "data-icon",
+      "circle-check",
+    );
   });
 
-  it('reverts to copy icon after timeout', async () => {
+  it("reverts to copy icon after timeout", async () => {
     render(<CopyButton text="hello" />);
-    fireEvent.click(screen.getByRole('button', { name: /copy/i }));
-    expect(screen.getByTestId('copy-button-icon')).toHaveAttribute('data-icon', 'circle-check');
+    fireEvent.click(screen.getByRole("button", { name: /copy/i }));
+    expect(screen.getByTestId("copy-button-icon")).toHaveAttribute(
+      "data-icon",
+      "circle-check",
+    );
 
     await act(async () => {
       vi.advanceTimersByTime(600);
     });
 
-    expect(screen.getByTestId('copy-button-icon')).toHaveAttribute('data-icon', 'copy');
+    expect(screen.getByTestId("copy-button-icon")).toHaveAttribute(
+      "data-icon",
+      "copy",
+    );
   });
 
-  it('handles null text gracefully', () => {
+  it("handles null text gracefully", () => {
     render(<CopyButton text={null} />);
-    fireEvent.click(screen.getByRole('button', { name: /copy/i }));
-    expect(globalThis.navigator.clipboard.writeText).toHaveBeenCalledWith('');
+    fireEvent.click(screen.getByRole("button", { name: /copy/i }));
+    expect(globalThis.navigator.clipboard.writeText).toHaveBeenCalledWith("");
   });
 });

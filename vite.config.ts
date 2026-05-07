@@ -1,22 +1,19 @@
-import { defineConfig } from 'vite';
-import react from '@vitejs/plugin-react';
-import tailwindcss from '@tailwindcss/vite';
+import { defineConfig } from "vite";
+import react from "@vitejs/plugin-react";
+import tailwindcss from "@tailwindcss/vite";
 
 export default defineConfig({
-  base: './',
+  base: "./",
   build: {
     rollupOptions: {
       output: [
-        { dir: 'dist' },
-        { dir: 'dist/order' }, // For Netlify subdirectory
+        { dir: "dist" },
+        { dir: "dist/order" }, // For Netlify subdirectory
       ],
     },
   },
   server: {
     port: 3090,
   },
-  plugins: [
-    react(),
-    tailwindcss(),
-  ],
+  plugins: [react(), tailwindcss()],
 });

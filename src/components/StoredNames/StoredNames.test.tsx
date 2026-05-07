@@ -1,13 +1,13 @@
-import { describe, expect, it } from 'vitest';
-import { render, screen } from '@testing-library/react';
-import StoredNames from './StoredNames';
+import { describe, expect, it } from "vitest";
+import { render, screen } from "@testing-library/react";
+import StoredNames from "./StoredNames";
 
-describe('StoredNames component', () => {
-  it('renders without crashing', () => {
+describe("StoredNames component", () => {
+  it("renders without crashing", () => {
     render(<StoredNames />);
   });
 
-  it('displays a message when there are no stored names', () => {
+  it("displays a message when there are no stored names", () => {
     render(<StoredNames />);
     const message = screen.getByText(/No stored lists/i);
     expect(message).toBeInTheDocument();

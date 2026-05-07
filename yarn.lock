@@ -826,18 +826,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@stylistic/eslint-plugin-js@npm:^4.2.0":
-  version: 4.2.0
-  resolution: "@stylistic/eslint-plugin-js@npm:4.2.0"
-  dependencies:
-    eslint-visitor-keys: "npm:^4.2.0"
-    espree: "npm:^10.3.0"
-  peerDependencies:
-    eslint: ">=9.0.0"
-  checksum: 10c0/5e5a21a60c818fc9f745b12fab252a1188e4d98d7008a81dbaf5a8e106558ac757c4c56e2a4b982bd97249132a31f577a991383f77b4912b8b26723d57654256
-  languageName: node
-  linkType: hard
-
 "@swc/helpers@npm:^0.5.0":
   version: 0.5.17
   resolution: "@swc/helpers@npm:0.5.17"
@@ -2267,6 +2255,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"eslint-config-prettier@npm:^10.1.8":
+  version: 10.1.8
+  resolution: "eslint-config-prettier@npm:10.1.8"
+  peerDependencies:
+    eslint: ">=7.0.0"
+  bin:
+    eslint-config-prettier: bin/cli.js
+  checksum: 10c0/e1bcfadc9eccd526c240056b1e59c5cd26544fe59feb85f38f4f1f116caed96aea0b3b87868e68b3099e55caaac3f2e5b9f58110f85db893e83a332751192682
+  languageName: node
+  linkType: hard
+
 "eslint-plugin-jsx-a11y@npm:^6.10.2":
   version: 6.10.2
   resolution: "eslint-plugin-jsx-a11y@npm:6.10.2"
@@ -2831,6 +2830,15 @@ __metadata:
     agent-base: "npm:^7.1.2"
     debug: "npm:4"
   checksum: 10c0/f729219bc735edb621fa30e6e84e60ee5d00802b8247aac0d7b79b0bd6d4b3294737a337b93b86a0bd9e68099d031858a39260c976dc14cdbba238ba1f8779ac
+  languageName: node
+  linkType: hard
+
+"husky@npm:^9.1.7":
+  version: 9.1.7
+  resolution: "husky@npm:9.1.7"
+  bin:
+    husky: bin.js
+  checksum: 10c0/35bb110a71086c48906aa7cd3ed4913fb913823715359d65e32e0b964cb1e255593b0ae8014a5005c66a68e6fa66c38dcfa8056dbbdfb8b0187c0ffe7ee3a58f
   languageName: node
   linkType: hard
 
@@ -4491,7 +4499,6 @@ __metadata:
     "@fortawesome/fontawesome-svg-core": "npm:^6.7.2"
     "@fortawesome/react-fontawesome": "npm:^0.2.2"
     "@headlessui/react": "npm:^2.2.1"
-    "@stylistic/eslint-plugin-js": "npm:^4.2.0"
     "@tailwindcss/vite": "npm:^4.2.4"
     "@testing-library/dom": "npm:^10.4.0"
     "@testing-library/jest-dom": "npm:^6.6.3"
@@ -4504,10 +4511,12 @@ __metadata:
     "@vitejs/plugin-react": "npm:^6.0.1"
     "@vitest/coverage-v8": "npm:^4.1.5"
     eslint: "npm:^9.24.0"
+    eslint-config-prettier: "npm:^10.1.8"
     eslint-plugin-jsx-a11y: "npm:^6.10.2"
     eslint-plugin-react: "npm:^7.37.5"
     eslint-plugin-react-hooks: "npm:^5.2.0"
     globals: "npm:^16.0.0"
+    husky: "npm:^9.1.7"
     jsdom: "npm:^29.1.0"
     lodash: "npm:^4.17.21"
     prettier: "npm:^3.5.3"

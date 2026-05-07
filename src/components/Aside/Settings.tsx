@@ -1,30 +1,39 @@
-import { useEffect } from 'react';
-import { useLocalStorage, useMediaQuery } from '@uidotdev/usehooks';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { byPrefixAndName } from '@awesome.me/kit-84f13ff524/icons';
-import { DEFAULT_OPTIONS } from '../../utils/constants';
-import type { IOptions } from '../../utils/constants';
-import Switch from '../Fields/Switch';
+import { useEffect } from "react";
+import { useLocalStorage, useMediaQuery } from "@uidotdev/usehooks";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { byPrefixAndName } from "@awesome.me/kit-84f13ff524/icons";
+import { DEFAULT_OPTIONS } from "../../utils/constants";
+import type { IOptions } from "../../utils/constants";
+import Switch from "../Fields/Switch";
 
 function Settings() {
-  const [storedOptions, setStoredOptions] = useLocalStorage<Partial<IOptions> | null>('options', null);
-  const [storedTheme, setStoredTheme] = useLocalStorage<string | undefined>('theme', undefined);
-  const prefersDark = useMediaQuery('(prefers-color-scheme: dark)');
-  const localOptions = storedOptions ? { ...DEFAULT_OPTIONS, ...storedOptions } : DEFAULT_OPTIONS;
+  const [storedOptions, setStoredOptions] =
+    useLocalStorage<Partial<IOptions> | null>("options", null);
+  const [storedTheme, setStoredTheme] = useLocalStorage<string | undefined>(
+    "theme",
+    undefined,
+  );
+  const prefersDark = useMediaQuery("(prefers-color-scheme: dark)");
+  const localOptions = storedOptions
+    ? { ...DEFAULT_OPTIONS, ...storedOptions }
+    : DEFAULT_OPTIONS;
 
   useEffect(() => {
     if (!storedTheme) {
       if (prefersDark) {
-        document.documentElement.classList.add('dark');
+        document.documentElement.classList.add("dark");
       } else {
-        document.documentElement.classList.remove('dark');
+        document.documentElement.classList.remove("dark");
       }
     }
   }, [prefersDark, storedTheme]);
 
   const handleSettingsChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.type === 'checkbox') {
-      setStoredOptions((prev) => ({ ...prev, [e.target.name]: e.target.checked }));
+    if (e.target.type === "checkbox") {
+      setStoredOptions((prev) => ({
+        ...prev,
+        [e.target.name]: e.target.checked,
+      }));
       return;
     }
     setStoredOptions((prev) => ({ ...prev, [e.target.name]: e.target.value }));
@@ -33,14 +42,22 @@ function Settings() {
   const handleThemeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { checked, value } = e.target;
     if (checked) {
-      setStoredTheme(value === 'system' ? undefined : value);
+      setStoredTheme(value === "system" ? undefined : value);
 
-      if (value === 'light' || (value === 'system' && window.matchMedia('(prefers-color-scheme: light)').matches)) {
-        document.documentElement.classList.remove('dark');
+      if (
+        value === "light" ||
+        (value === "system" &&
+          window.matchMedia("(prefers-color-scheme: light)").matches)
+      ) {
+        document.documentElement.classList.remove("dark");
       }
 
-      if (value === 'dark' || (value === 'system' && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-        document.documentElement.classList.add('dark');
+      if (
+        value === "dark" ||
+        (value === "system" &&
+          window.matchMedia("(prefers-color-scheme: dark)").matches)
+      ) {
+        document.documentElement.classList.add("dark");
       }
     }
   };
@@ -48,12 +65,15 @@ function Settings() {
   return (
     <>
       <h2 className="border-b border-slate-400 py-5 px-4 font-extralight uppercase tracking-wide text-slate-600 dark:text-slate-400">
-        <FontAwesomeIcon icon={byPrefixAndName.fal['cog']} className="me-2" />
+        <FontAwesomeIcon icon={byPrefixAndName.fal["cog"]} className="me-2" />
         Settings
       </h2>
       <div className="p-4">
         <div>
-          <label htmlFor="prefix" className="block text-sm text-slate-600 dark:text-slate-400">
+          <label
+            htmlFor="prefix"
+            className="block text-sm text-slate-600 dark:text-slate-400"
+          >
             Prefix
           </label>
           <input
@@ -67,7 +87,9 @@ function Settings() {
         </div>
 
         <div>
-          <p className="mt-1 text-sm text-slate-600 dark:text-slate-400">Separators</p>
+          <p className="mt-1 text-sm text-slate-600 dark:text-slate-400">
+            Separators
+          </p>
           <label htmlFor="separator" className="sr-only">
             Separator
           </label>
@@ -93,14 +115,22 @@ function Settings() {
         </div>
 
         <div className="mt-1">
-          <Switch name="oxfordComma" checked={!!localOptions.oxfordComma} value="1" onChange={handleSettingsChange} />
+          <Switch
+            name="oxfordComma"
+            checked={!!localOptions.oxfordComma}
+            value="1"
+            onChange={handleSettingsChange}
+          />
         </div>
       </div>
 
       <div className="mt-3 border-t border-slate-400">
         <div className="p-4">
           <h3 className="mb-1 font-light tracking-wide text-slate-600 dark:text-slate-400">
-            <FontAwesomeIcon icon={byPrefixAndName.fal['eclipse']} className="me-2" />
+            <FontAwesomeIcon
+              icon={byPrefixAndName.fal["eclipse"]}
+              className="me-2"
+            />
             Appearance
           </h3>
 
@@ -110,7 +140,7 @@ function Settings() {
               id="theme-dark"
               name="theme"
               value="dark"
-              defaultChecked={storedTheme === 'dark'}
+              defaultChecked={storedTheme === "dark"}
               className="me-1"
               onChange={handleThemeChange}
             />
@@ -123,7 +153,7 @@ function Settings() {
               id="theme-light"
               name="theme"
               value="light"
-              defaultChecked={storedTheme === 'light'}
+              defaultChecked={storedTheme === "light"}
               className="me-1"
               onChange={handleThemeChange}
             />
@@ -136,7 +166,7 @@ function Settings() {
               id="theme-system"
               name="theme"
               value="system"
-              defaultChecked={storedTheme === 'system' || !storedTheme}
+              defaultChecked={storedTheme === "system" || !storedTheme}
               className="me-1"
               onChange={handleThemeChange}
             />

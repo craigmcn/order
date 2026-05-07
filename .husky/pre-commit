@@ -1,0 +1,4 @@
+yarn prettier --check .
+yarn eslint src
+yarn tsc -b
+yarn test --run

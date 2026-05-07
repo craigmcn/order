@@ -1,23 +1,23 @@
-import { mergeConfig } from 'vite';
-import { defineConfig } from 'vitest/config';
-import viteConfig from './vite.config';
+import { mergeConfig } from "vite";
+import { defineConfig } from "vitest/config";
+import viteConfig from "./vite.config";
 
 export default mergeConfig(
   viteConfig,
   defineConfig({
     test: {
-      environment: 'jsdom',
+      environment: "jsdom",
       globals: true,
-      setupFiles: './tests/setup.ts',
+      setupFiles: "./tests/setup.ts",
       coverage: {
-        reporter: ['text', 'json', 'html'],
+        reporter: ["text", "json", "html"],
         exclude: [
-          'node_modules/**',
-          'coverage/**',
-          'dist/**',
-          '**/{vite,vitest,tailwind}.config.{js,ts}',
+          "node_modules/**",
+          "coverage/**",
+          "dist/**",
+          "**/{vite,vitest,tailwind}.config.{js,ts}",
         ],
-        include: ['src/**/*.{ts,tsx}'],
+        include: ["src/**/*.{ts,tsx}"],
       },
     },
   }),

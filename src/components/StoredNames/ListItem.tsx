@@ -1,8 +1,8 @@
-import { useContext, useState } from 'react';
-import { NamesContext } from '../../contexts/NamesContext';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { byPrefixAndName } from '@awesome.me/kit-84f13ff524/icons';
-import ConfirmDialog from './ConfirmDialog';
+import { useContext, useState } from "react";
+import { NamesContext } from "../../contexts/NamesContext";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { byPrefixAndName } from "@awesome.me/kit-84f13ff524/icons";
+import ConfirmDialog from "./ConfirmDialog";
 
 interface IListItemProps {
   id: string;
@@ -14,7 +14,9 @@ interface IListItemProps {
 function ListItem({ id, names, onSelect, onDelete }: IListItemProps) {
   const { currentNames, setCurrentNames } = useContext(NamesContext);
   const [showConfirm, setShowConfirm] = useState(false);
-  const displayNames = names?.map((v) => (v.includes(' ') ? `"${v}"` : v)).join(', ');
+  const displayNames = names
+    ?.map((v) => (v.includes(" ") ? `"${v}"` : v))
+    .join(", ");
 
   const handleClick = () => {
     if (currentNames?.id !== id) {
@@ -34,7 +36,10 @@ function ListItem({ id, names, onSelect, onDelete }: IListItemProps) {
   return (
     <>
       <li className="border-b border-slate-400 flex items-center text-slate-600 dark:text-slate-400">
-        <button className="py-4 ps-4 flex-auto text-start" onClick={handleClick}>
+        <button
+          className="py-4 ps-4 flex-auto text-start"
+          onClick={handleClick}
+        >
           {displayNames}
         </button>
         <button
@@ -43,7 +48,7 @@ function ListItem({ id, names, onSelect, onDelete }: IListItemProps) {
           aria-label="Delete"
           title="Delete"
         >
-          <FontAwesomeIcon icon={byPrefixAndName.fal['trash-alt']} />
+          <FontAwesomeIcon icon={byPrefixAndName.fal["trash-alt"]} />
         </button>
       </li>
 
