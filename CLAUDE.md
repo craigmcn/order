@@ -64,7 +64,7 @@ Config: `eslint.config.mjs` (ESLint 9 flat config, `typescript-eslint` recommend
 
 ## Prettier
 
-Config: `.prettierrc` (`{}`— all defaults). Run `yarn format` to reformat, `yarn format:check` to verify. The pre-commit hook runs `format:check` before committing.
+Config: `.prettierrc` (`{}` — all defaults). Run `yarn format` to reformat, `yarn format:check` to verify. The pre-commit hook runs `format:check` before committing.
 
 ## Husky
 
