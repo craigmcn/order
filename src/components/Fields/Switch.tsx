@@ -1,8 +1,9 @@
-import type { InputHTMLAttributes } from 'react';
-import _kebabCase from 'lodash/kebabCase';
-import { sentenceCase } from '../../utils';
+import type { InputHTMLAttributes } from "react";
+import _kebabCase from "lodash/kebabCase";
+import { sentenceCase } from "../../utils";
 
-interface ISwitchProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'id'> {
+interface ISwitchProps
+  extends Omit<InputHTMLAttributes<HTMLInputElement>, "id"> {
   id?: string | null;
   name: string;
   label?: string | null;
@@ -10,7 +11,14 @@ interface ISwitchProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'id'>
   value?: string | number;
 }
 
-function Switch({ id = null, name, label = null, checked = false, value = 'on', ...props }: ISwitchProps) {
+function Switch({
+  id = null,
+  name,
+  label = null,
+  checked = false,
+  value = "on",
+  ...props
+}: ISwitchProps) {
   const derivedId = id || _kebabCase(name);
   const derivedLabel = label || sentenceCase(name);
 
@@ -26,7 +34,9 @@ function Switch({ id = null, name, label = null, checked = false, value = 'on', 
         {...props}
       />
       <div className="relative w-7 h-4 bg-slate-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-slate-200/50 peer-focus:peer-checked:ring-green-500/50 dark:peer-focus:ring-green-800 rounded-full peer dark:bg-slate-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white dark:after:bg-slate-300 dark:after:peer-checked:bg-white/50 after:border-slate-300 after:border after:rounded-full after:h-3 after:w-3 after:transition-all dark:border-slate-600 peer-checked:bg-green-600"></div>
-      <span className="ms-2 text-sm text-slate-600 dark:text-slate-400">{derivedLabel}</span>
+      <span className="ms-2 text-sm text-slate-600 dark:text-slate-400">
+        {derivedLabel}
+      </span>
     </label>
   );
 }

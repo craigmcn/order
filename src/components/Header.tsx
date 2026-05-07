@@ -1,4 +1,4 @@
-import _startCase from 'lodash/startCase';
+import _startCase from "lodash/startCase";
 
 interface IHeaderProps {
   title: string;

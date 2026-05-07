@@ -1,22 +1,28 @@
-import { useContext, useEffect, useMemo, useRef, useState } from 'react';
-import { useLocalStorage } from '@uidotdev/usehooks';
-import { v4 as uuid4 } from 'uuid';
-import _throttle from 'lodash/throttle';
-import { parseNames } from '../utils';
-import { NamesContext } from '../contexts/NamesContext';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { byPrefixAndName } from '@awesome.me/kit-84f13ff524/icons';
-import Textarea from './Fields/Textarea';
-import Switch from './Fields/Switch';
+import { useContext, useEffect, useMemo, useRef, useState } from "react";
+import { useLocalStorage } from "@uidotdev/usehooks";
+import { v4 as uuid4 } from "uuid";
+import _throttle from "lodash/throttle";
+import { parseNames } from "../utils";
+import { NamesContext } from "../contexts/NamesContext";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { byPrefixAndName } from "@awesome.me/kit-84f13ff524/icons";
+import Textarea from "./Fields/Textarea";
+import Switch from "./Fields/Switch";
 
 function Form() {
   const { currentNames, setCurrentNames } = useContext(NamesContext);
-  const [, setStoredNames] = useLocalStorage<Record<string, string[]> | null>('names', null);
+  const [, setStoredNames] = useLocalStorage<Record<string, string[]> | null>(
+    "names",
+    null,
+  );
   const [error, setError] = useState<string | null>(null);
   const [remember, setRemember] = useState(false);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
-  const uniqueId = useMemo(() => currentNames?.id ?? uuid4(), [currentNames?.id]);
+  const uniqueId = useMemo(
+    () => currentNames?.id ?? uuid4(),
+    [currentNames?.id],
+  );
 
   useEffect(() => {
     if (!currentNames) return;
@@ -25,16 +31,19 @@ function Form() {
     const namesArray = currentNames.names;
 
     if (textareaRef.current) {
-      textareaRef.current.value = namesArray.map((v) => (v.includes(' ') ? `"${v}"` : v)).join(', ');
+      textareaRef.current.value = namesArray
+        .map((v) => (v.includes(" ") ? `"${v}"` : v))
+        .join(", ");
     }
   }, [currentNames]);
 
   const handleNamesChange = useMemo(
-    () => _throttle((e: React.ChangeEvent<HTMLTextAreaElement>) => {
-      if (error && e.target.value) {
-        setError(null);
-      }
-    }, 300),
+    () =>
+      _throttle((e: React.ChangeEvent<HTMLTextAreaElement>) => {
+        if (error && e.target.value) {
+          setError(null);
+        }
+      }, 300),
     [error],
   );
 
@@ -46,7 +55,7 @@ function Form() {
     setCurrentNames(null);
     setError(null);
     if (textareaRef.current) {
-      textareaRef.current.value = '';
+      textareaRef.current.value = "";
     }
   };
 
@@ -54,20 +63,27 @@ function Form() {
     e.preventDefault();
 
     const form = e.currentTarget;
-    const namesField = form.elements.namedItem('names') as HTMLTextAreaElement;
+    const namesField = form.elements.namedItem("names") as HTMLTextAreaElement;
     if (!namesField.value) {
-      setError('Please enter at least one name.');
+      setError("Please enter at least one name.");
       return;
     }
 
     const namesArray = parseNames(namesField.value);
     let currentId: string | null = null;
 
-    const rememberField = form.elements.namedItem('remember') as HTMLInputElement;
+    const rememberField = form.elements.namedItem(
+      "remember",
+    ) as HTMLInputElement;
     if (rememberField.checked) {
-      const newField = form.elements.namedItem('new') as HTMLInputElement | null;
+      const newField = form.elements.namedItem(
+        "new",
+      ) as HTMLInputElement | null;
       currentId = newField?.checked ? newField.value : rememberField.value;
-      setStoredNames((storedNames) => ({ ...storedNames, [currentId!]: namesArray }));
+      setStoredNames((storedNames) => ({
+        ...storedNames,
+        [currentId!]: namesArray,
+      }));
     }
     setCurrentNames({ id: currentId, names: namesArray });
   };
@@ -75,7 +91,10 @@ function Form() {
   return (
     <form key={uniqueId} name="participants" onSubmit={handleSubmit}>
       <div className="flex justify-between items-center">
-        <label className="block text-slate-600 dark:text-slate-400 mb-1" htmlFor="names">
+        <label
+          className="block text-slate-600 dark:text-slate-400 mb-1"
+          htmlFor="names"
+        >
           Participant names
         </label>
         <button
@@ -85,7 +104,10 @@ function Form() {
           title="Clear current list"
           className="border-0 rounded py-0 px-0.5 text-slate-600 dark:text-slate-400 outline-none outline-offset-0 focus:outline-orange-500/50"
         >
-          <FontAwesomeIcon icon={byPrefixAndName.fal['delete-left']} size="lg" />
+          <FontAwesomeIcon
+            icon={byPrefixAndName.fal["delete-left"]}
+            size="lg"
+          />
         </button>
       </div>
       <div className="mb-1">
@@ -96,13 +118,21 @@ function Form() {
           autoResize
           onChange={handleNamesChange}
         />
-        {error && <p className="text-sm text-red-600 dark:text-red-400">{error}</p>}
+        {error && (
+          <p className="text-sm text-red-600 dark:text-red-400">{error}</p>
+        )}
       </div>
 
       <div className="flex items-center justify-between sm:justify-start gap-x-4">
-        <Switch name="remember" label="Remember this list" checked={!!currentNames?.id} value={uniqueId} onChange={handleRememberChange} />
+        <Switch
+          name="remember"
+          label="Remember this list"
+          checked={!!currentNames?.id}
+          value={uniqueId}
+          onChange={handleRememberChange}
+        />
 
-        {(remember && !!currentNames?.id) && (
+        {remember && !!currentNames?.id && (
           <Switch name="new" label="New list" value={uuid4()} />
         )}
       </div>

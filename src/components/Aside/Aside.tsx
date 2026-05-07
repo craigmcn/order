@@ -1,14 +1,14 @@
-import { useCallback, useEffect, useState } from 'react';
-import { useMediaQuery } from '@uidotdev/usehooks';
-import { Transition } from '@headlessui/react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { byPrefixAndName } from '@awesome.me/kit-84f13ff524/icons';
-import StoredNames from '../StoredNames/StoredNames';
-import Settings from './Settings';
+import { useCallback, useEffect, useState } from "react";
+import { useMediaQuery } from "@uidotdev/usehooks";
+import { Transition } from "@headlessui/react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { byPrefixAndName } from "@awesome.me/kit-84f13ff524/icons";
+import StoredNames from "../StoredNames/StoredNames";
+import Settings from "./Settings";
 
 function Aside() {
   const [offCanvas, setOffCanvas] = useState(false);
-  const mdBreakpoint = useMediaQuery('(min-width: 768px)');
+  const mdBreakpoint = useMediaQuery("(min-width: 768px)");
 
   const closeOffCanvas = () => {
     if (mdBreakpoint) return;
@@ -29,10 +29,10 @@ function Aside() {
   }, [fixOffCanvas]);
 
   useEffect(() => {
-    window.addEventListener('resize', fixOffCanvas);
+    window.addEventListener("resize", fixOffCanvas);
 
     return () => {
-      window.removeEventListener('resize', fixOffCanvas);
+      window.removeEventListener("resize", fixOffCanvas);
     };
   }, [fixOffCanvas]);
 
@@ -45,7 +45,11 @@ function Aside() {
           onClick={toggleOffCanvas}
           aria-label="Open settings menu"
         >
-          <FontAwesomeIcon icon={byPrefixAndName.fal['bars']} size="lg" fixedWidth />
+          <FontAwesomeIcon
+            icon={byPrefixAndName.fal["bars"]}
+            size="lg"
+            fixedWidth
+          />
         </button>
       </div>
 
@@ -65,7 +69,10 @@ function Aside() {
           <div className="w-80">
             <div className="flex justify-between items-center border-b border-slate-400 p-4">
               <h2 className="font-extralight uppercase tracking-wide text-slate-500 dark:text-slate-400">
-                <FontAwesomeIcon icon={byPrefixAndName.fal['list']} className="me-2" />
+                <FontAwesomeIcon
+                  icon={byPrefixAndName.fal["list"]}
+                  className="me-2"
+                />
                 Stored lists
               </h2>
 
@@ -75,7 +82,11 @@ function Aside() {
                 onClick={toggleOffCanvas}
                 aria-label="Close settings menu"
               >
-                <FontAwesomeIcon icon={byPrefixAndName.fal['xmark']} size="lg" fixedWidth />
+                <FontAwesomeIcon
+                  icon={byPrefixAndName.fal["xmark"]}
+                  size="lg"
+                  fixedWidth
+                />
               </button>
             </div>
 

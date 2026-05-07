@@ -1,18 +1,18 @@
-import { useState } from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { byPrefixAndName } from '@awesome.me/kit-84f13ff524/icons';
-import { copyToClipboard } from '../utils';
+import { useState } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { byPrefixAndName } from "@awesome.me/kit-84f13ff524/icons";
+import { copyToClipboard } from "../utils";
 
 interface ICopyButtonProps {
   text: string | null;
 }
 
-function CopyButton({ text = '' }: ICopyButtonProps) {
+function CopyButton({ text = "" }: ICopyButtonProps) {
   const [copied, setCopied] = useState(false);
 
   const handleCopy = (e: React.MouseEvent<HTMLButtonElement>) => {
     const copyButton = e.currentTarget;
-    copyToClipboard(text ?? '');
+    copyToClipboard(text ?? "");
     setCopied(true);
     setTimeout(() => {
       copyButton.blur();
@@ -27,14 +27,18 @@ function CopyButton({ text = '' }: ICopyButtonProps) {
         invisible group-hover:visible group-focus-within:visible
         mt-1 mr-1 p-1 rounded-sm
         bg-white dark:bg-slate-900 bg-opacity-75 dark:bg-opacity-50 backdrop-blur-sm
-        ${copied ? 'text-green-600 dark:text-green-400 focus-visible:outline-green-800/50' : 'text-slate-600 dark:text-slate-400 focus-visible:outline-orange-500/50'}
+        ${copied ? "text-green-600 dark:text-green-400 focus-visible:outline-green-800/50" : "text-slate-600 dark:text-slate-400 focus-visible:outline-orange-500/50"}
         transition-colors duration-100
       `}
       type="button"
       title="Copy"
       onClick={handleCopy}
     >
-      <FontAwesomeIcon data-testid="copy-button-icon" icon={byPrefixAndName.fal[copied ? 'check-circle' : 'copy']} fixedWidth />
+      <FontAwesomeIcon
+        data-testid="copy-button-icon"
+        icon={byPrefixAndName.fal[copied ? "check-circle" : "copy"]}
+        fixedWidth
+      />
     </button>
   );
 }

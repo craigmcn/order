@@ -27,13 +27,17 @@ Requires Node 24 and Yarn 4. A `FONTAWESOME_NPM_AUTH_TOKEN` environment variable
 
 ```bash
 yarn install
-yarn dev       # start dev server
-yarn lint      # ESLint (no auto-fix)
-yarn test      # Vitest in watch mode
-yarn test:run  # single-pass test run
-yarn coverage  # coverage report
-yarn build     # type-check then build to dist/
+yarn dev          # start dev server
+yarn lint         # ESLint (no auto-fix)
+yarn format       # Prettier (write)
+yarn format:check # Prettier (check only, used in CI)
+yarn test         # Vitest in watch mode
+yarn test:run     # single-pass test run
+yarn coverage     # coverage report
+yarn build        # type-check then build to dist/
 ```
+
+A Husky pre-commit hook runs `prettier --check`, `eslint`, `tsc -b`, and `vitest --run` on every commit.
 
 ## Deployment
 

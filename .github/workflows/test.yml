@@ -19,11 +19,14 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version-file: '.nvmrc'
-          cache: 'yarn'
+          node-version-file: ".nvmrc"
+          cache: "yarn"
 
       - name: Install dependencies
         run: yarn install --immutable
+
+      - name: Format check
+        run: yarn format:check
 
       - name: Lint
         run: yarn lint
