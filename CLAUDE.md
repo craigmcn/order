@@ -7,6 +7,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ```bash
 yarn dev          # Start dev server at http://localhost:3090
 yarn build        # Type-check (tsc -b) then build to dist/
+yarn build:netlify # Two-pass Vite build to netlify/ and netlify/order/
 yarn preview      # Preview the production build locally
 yarn lint         # ESLint on src/
 yarn format       # Prettier --write on all files
@@ -78,11 +79,12 @@ Pre-commit hook (`.husky/pre-commit`) runs: `prettier --check`, `eslint src`, `t
 - **PR #5** — follow-up: CODEOWNERS, README, remove unused deps (`test-console`, `eslint-plugin-import`, `eslint-plugin-promise`), delete `tailwind.config.js`, fix `handleNamesChange` throttle, add form tests (83 tests total)
 - **PR #6** — favicon (standard icon set pointing to parent-app assets), remove `eslint-plugin-n`, error-recovery form test, fix `<title>` ordering in `index.html`
 - **PR #7** — delete legacy `.eslintrc.cjs`, fix dev port 5510→3090 in `vite.config.ts`, bump Yarn 4.9.1→4.14.1
-- **PR #8 (open, 2026-05-07)** — Husky pre-commit hook, reset `.prettierrc` to `{}` (Prettier defaults), add `eslint-config-prettier`, remove `@stylistic/eslint-plugin-js`, add `format`/`format:check` scripts, `format:check` step in CI, full reformat
+- **PR #8** — Husky pre-commit hook, reset `.prettierrc` to `{}` (Prettier defaults), add `eslint-config-prettier`, remove `@stylistic/eslint-plugin-js`, add `format`/`format:check` scripts, `format:check` step in CI, full reformat
+- **PR #9 (open)** — remove `enableScripts` + `approvedGitRepositories` from `.yarnrc.yml`; add `build:netlify` script; replace non-standard `rollupOptions` dual-output in `vite.config.ts` with `base: "./"` only; add `netlify/` to `.gitignore`
 
 ### Outstanding
 
-- Merge PR #8 and confirm CI passes — after that, `order` is fully aligned with the cross-repo standard
+- Merge PR #9 and confirm CI passes — after that, `order` is fully aligned with the cross-repo standard
 - No further planned changes specific to this repo
 
 ### Key decisions
@@ -92,3 +94,5 @@ Pre-commit hook (`.husky/pre-commit`) runs: `prettier --check`, `eslint src`, `t
 - `@stylistic/eslint-plugin-js` removed — was imported but no rules were actually using the `@stylistic/js/` prefix; formatting is Prettier's job
 - Husky hook uses `yarn tsc -b` (not bare `tsc -b`) — bare command relies on a global TypeScript install; `yarn` prefix resolves from `node_modules/.bin/`
 - `lint` script has no `--fix` flag — intentional; fixes must be deliberate, not automatic
+- `build:netlify` omits `tsc -b` — type checking is covered by `yarn build` in CI; Netlify only needs the Vite output
+- `build:netlify` runs two separate `vite build` passes (not Rollup `output` array) — cleaner and consistent with the cross-repo standard (`currency` pattern)
