@@ -80,12 +80,11 @@ Pre-commit hook (`.husky/pre-commit`) runs: `prettier --check`, `eslint src`, `t
 - **PR #6** — favicon (standard icon set pointing to parent-app assets), remove `eslint-plugin-n`, error-recovery form test, fix `<title>` ordering in `index.html`
 - **PR #7** — delete legacy `.eslintrc.cjs`, fix dev port 5510→3090 in `vite.config.ts`, bump Yarn 4.9.1→4.14.1
 - **PR #8** — Husky pre-commit hook, reset `.prettierrc` to `{}` (Prettier defaults), add `eslint-config-prettier`, remove `@stylistic/eslint-plugin-js`, add `format`/`format:check` scripts, `format:check` step in CI, full reformat
-- **PR #9 (open)** — remove `enableScripts` + `approvedGitRepositories` from `.yarnrc.yml`; add `build:netlify` script; replace non-standard `rollupOptions` dual-output in `vite.config.ts` with `base: "./"` only; add `netlify/` to `.gitignore`
+- **PR #9 (merged)** — remove `enableScripts` + `approvedGitRepositories` from `.yarnrc.yml`; add `build:netlify` script; replace non-standard `rollupOptions` dual-output in `vite.config.ts` with `base: "./"` only; add `netlify/` to `.gitignore`
 
 ### Outstanding
 
-- Merge PR #9 and confirm CI passes — after that, `order` is fully aligned with the cross-repo standard
-- No further planned changes specific to this repo
+PR #9 merged; `order` is fully aligned with the cross-repo standard. Open TODOs (GitHub Actions bump, finish axe tooling, Playwright E2E) tracked as issues in the [order GitHub Project](https://github.com/users/craigmcn/projects/9).
 
 ### Key decisions
 
