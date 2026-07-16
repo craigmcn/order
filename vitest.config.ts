@@ -1,5 +1,5 @@
 import { mergeConfig } from "vite";
-import { defineConfig } from "vitest/config";
+import { configDefaults, defineConfig } from "vitest/config";
 import viteConfig from "./vite.config";
 
 export default mergeConfig(
@@ -8,6 +8,7 @@ export default mergeConfig(
     test: {
       environment: "jsdom",
       globals: true,
+      exclude: [...configDefaults.exclude, "e2e/**"],
       setupFiles: "./tests/setup.ts",
       coverage: {
         reporter: ["text", "json", "html"],

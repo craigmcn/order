@@ -15,9 +15,12 @@ yarn format:check # Prettier --check (used in CI)
 yarn test         # Vitest in watch mode
 yarn test:run     # Vitest single pass
 yarn coverage     # Vitest with coverage report
+yarn test:e2e     # Playwright E2E tests (requires `yarn playwright install chromium` once)
 ```
 
-**Tests:** Vitest 4 + Testing Library. Co-located alongside source files (`*.test.tsx` / `*.test.ts` next to the component or module they test).
+**Tests:** Vitest 4 + Testing Library. Co-located alongside source files (`*.test.tsx` / `*.test.ts` next to the component or module they test). An automated `vitest-axe` accessibility scan of the rendered `App` runs as part of the normal unit-test suite.
+
+**E2E:** Playwright (`playwright.config.ts`, Chromium only), specs in `e2e/`. Runs against `yarn dev` on port 3090. Excluded from Vitest's glob (`vitest.config.ts` adds `e2e/**` to `configDefaults.exclude`); run in CI only, not pre-commit (browser install + startup too slow for a hook).
 
 ## Architecture
 
@@ -57,7 +60,8 @@ Icons are Font Awesome Light (`fal`) from a private kit (`@awesome.me/kit-84f13f
 - When extending HTML element attribute interfaces and overriding a property type (e.g. allowing `id?: string | null`), use `Omit<HTMLAttributes<HTMLElement>, 'id'>` before adding the narrower type.
 - Strict mode is on (`tsconfig.app.json`). No `any`.
 - The private FA kit has no published types — its ambient declaration is in `src/types/awesome-me.d.ts`.
-- Jest-dom matchers are augmented via `/// <reference types="@testing-library/jest-dom" />` in `src/types/vitest.d.ts`.
+- Jest-dom and vitest-axe matchers are augmented via `/// <reference types="..." />` in `src/types/vitest.d.ts`.
+- `tsconfig.node.json` covers `vite.config.ts`, `vitest.config.ts`, `playwright.config.ts`, and `e2e/`; it declares `"types": ["node"]` (via `@types/node`) so `process.env` resolves in those config/test files.
 
 ## ESLint
 
@@ -81,10 +85,13 @@ Pre-commit hook (`.husky/pre-commit`) runs: `prettier --check`, `eslint src`, `t
 - **PR #7** — delete legacy `.eslintrc.cjs`, fix dev port 5510→3090 in `vite.config.ts`, bump Yarn 4.9.1→4.14.1
 - **PR #8** — Husky pre-commit hook, reset `.prettierrc` to `{}` (Prettier defaults), add `eslint-config-prettier`, remove `@stylistic/eslint-plugin-js`, add `format`/`format:check` scripts, `format:check` step in CI, full reformat
 - **PR #9 (merged)** — remove `enableScripts` + `approvedGitRepositories` from `.yarnrc.yml`; add `build:netlify` script; replace non-standard `rollupOptions` dual-output in `vite.config.ts` with `base: "./"` only; add `netlify/` to `.gitignore`
+- **PR #14 (merged)** — bump `actions/checkout` and `actions/setup-node` to v7 in `test.yml`
+- **PR #15 (merged)** — add `vitest-axe`, wire it into `tests/setup.ts` + `src/types/vitest.d.ts`, add an accessibility scan test to `src/App.test.tsx`
+- **PR #16 (merged)** — add Playwright E2E testing: `playwright.config.ts`, `e2e/order.spec.ts` (golden-path generate + clear), `test:e2e` script, `tsconfig.node.json` covers `e2e/` + `@types/node`, `vitest.config.ts` excludes `e2e/**`, CI installs/caches Chromium and runs `yarn test:e2e`
 
 ### Outstanding
 
-PR #9 merged; `order` is fully aligned with the cross-repo standard. Open TODOs (GitHub Actions bump, finish axe tooling, Playwright E2E) tracked as issues in the [order GitHub Project](https://github.com/users/craigmcn/projects/9).
+All three open TODOs (GitHub Actions bump, axe tooling, Playwright E2E) are resolved. Check the [order GitHub Project](https://github.com/users/craigmcn/projects/9) for any newly filed issues.
 
 ### Key decisions
 
