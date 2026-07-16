@@ -6,6 +6,7 @@ export default defineConfig({
   base: "./",
   server: {
     port: 3090,
+    strictPort: true,
   },
   plugins: [react(), tailwindcss()],
 });

@@ -15,7 +15,7 @@ yarn format:check # Prettier --check (used in CI)
 yarn test         # Vitest in watch mode
 yarn test:run     # Vitest single pass
 yarn coverage     # Vitest with coverage report
-yarn test:e2e     # Playwright E2E tests (requires `yarn playwright install` once)
+yarn test:e2e     # Playwright E2E tests (requires `yarn playwright install chromium` once)
 ```
 
 **Tests:** Vitest 4 + Testing Library. Co-located alongside source files (`*.test.tsx` / `*.test.ts` next to the component or module they test). An automated `vitest-axe` accessibility scan of the rendered `App` runs as part of the normal unit-test suite.
