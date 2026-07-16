@@ -1,10 +1,16 @@
 import { describe, expect, it } from "vitest";
 import { render, screen } from "@testing-library/react";
+import { axe } from "vitest-axe";
 import App from "./App";
 
 describe("App component", () => {
   it("renders without crashing", () => {
     render(<App />);
+  });
+
+  it("has no detectable accessibility violations", async () => {
+    const { container } = render(<App />);
+    expect(await axe(container)).toHaveNoViolations();
   });
 
   it("renders the Header component", () => {
