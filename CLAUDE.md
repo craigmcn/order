@@ -52,14 +52,13 @@ A single-page React 19 + TypeScript app (Vite 8) that generates a randomized spe
 
 Tailwind CSS v4 (`@tailwindcss/vite` plugin — no `tailwind.config.js` content array needed in v4). Dark mode is class-based (`dark:` variants toggled by adding/removing `dark` on `document.documentElement`). Theme preference is persisted in `localStorage` under `'theme'` (`'dark'` | `'light'` | `undefined` for system).
 
-Icons are Font Awesome Light (`fal`) from a private kit (`@awesome.me/kit-84f13ff524`). The kit requires `FONTAWESOME_NPM_AUTH_TOKEN` set in the environment (CI uses `secrets.FONTAWESOME_NPM_AUTH_TOKEN`). Always access icons via `byPrefixAndName.fal['icon-name']`.
+Icons are Font Awesome 7 Pro **Sharp Duotone Light** (`@fortawesome/sharp-duotone-light-svg-icons`), the cross-repo default. Re-export each icon from `src/icons.ts` (which sets `autoAddCss = false` and bundles the CSS) and render `<FontAwesomeIcon icon={faX} />`; don't add other icon styles or a kit. Icons are fixed width by default in v7, so `fixedWidth` isn't needed. Installing needs `FONTAWESOME_NPM_AUTH_TOKEN` in the environment (CI uses `secrets.FONTAWESOME_NPM_AUTH_TOKEN`).
 
 ## TypeScript conventions
 
 - Interfaces are prefixed with `I` (e.g. `IOptions`, `INamesEntry`).
 - When extending HTML element attribute interfaces and overriding a property type (e.g. allowing `id?: string | null`), use `Omit<HTMLAttributes<HTMLElement>, 'id'>` before adding the narrower type.
 - Strict mode is on (`tsconfig.app.json`). No `any`.
-- The private FA kit has no published types — its ambient declaration is in `src/types/awesome-me.d.ts`.
 - Jest-dom and vitest-axe matchers are augmented via `/// <reference types="..." />` in `src/types/vitest.d.ts`.
 - `tsconfig.node.json` covers `vite.config.ts`, `vitest.config.ts`, `playwright.config.ts`, and `e2e/`; it declares `"types": ["node"]` (via `@types/node`) so `process.env` resolves in those config/test files.
 
@@ -88,6 +87,7 @@ Pre-commit hook (`.husky/pre-commit`) runs: `prettier --check`, `eslint src`, `t
 - **PR #14 (merged)** — bump `actions/checkout` and `actions/setup-node` to v7 in `test.yml`
 - **PR #15 (merged)** — add `vitest-axe`, wire it into `tests/setup.ts` + `src/types/vitest.d.ts`, add an accessibility scan test to `src/App.test.tsx`
 - **PR #16 (merged)** — add Playwright E2E testing: `playwright.config.ts`, `e2e/order.spec.ts` (golden-path generate + clear), `test:e2e` script, `tsconfig.node.json` covers `e2e/` + `@types/node`, `vitest.config.ts` excludes `e2e/**`, CI installs/caches Chromium and runs `yarn test:e2e`
+- **PR #19** — replace the Font Awesome kit with Font Awesome 7 Pro Sharp Duotone Light (npm); `src/icons.ts` re-exports icons with `autoAddCss = false` (CSP-friendly); drop the `awesome.me` scope and kit typings
 
 ### Outstanding
 

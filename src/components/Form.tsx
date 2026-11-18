@@ -5,7 +5,7 @@ import _throttle from "lodash/throttle";
 import { parseNames } from "../utils";
 import { NamesContext } from "../contexts/NamesContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { byPrefixAndName } from "@awesome.me/kit-84f13ff524/icons";
+import { faDeleteLeft } from "../icons";
 import Textarea from "./Fields/Textarea";
 import Switch from "./Fields/Switch";
 
@@ -104,10 +104,7 @@ function Form() {
           title="Clear current list"
           className="border-0 rounded py-0 px-0.5 text-slate-600 dark:text-slate-400 outline-none outline-offset-0 focus:outline-orange-500/50"
         >
-          <FontAwesomeIcon
-            icon={byPrefixAndName.fal["delete-left"]}
-            size="lg"
-          />
+          <FontAwesomeIcon icon={faDeleteLeft} size="lg" />
         </button>
       </div>
       <div className="mb-1">

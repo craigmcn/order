@@ -1,7 +1,7 @@
 import { useContext, useState } from "react";
 import { NamesContext } from "../../contexts/NamesContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { byPrefixAndName } from "@awesome.me/kit-84f13ff524/icons";
+import { faTrashCan } from "../../icons";
 import ConfirmDialog from "./ConfirmDialog";
 
 interface IListItemProps {
@@ -48,7 +48,7 @@ function ListItem({ id, names, onSelect, onDelete }: IListItemProps) {
           aria-label="Delete"
           title="Delete"
         >
-          <FontAwesomeIcon icon={byPrefixAndName.fal["trash-alt"]} />
+          <FontAwesomeIcon icon={faTrashCan} />
         </button>
       </li>
 

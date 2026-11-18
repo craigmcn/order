@@ -7,7 +7,7 @@ import {
   TransitionChild,
 } from "@headlessui/react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { byPrefixAndName } from "@awesome.me/kit-84f13ff524/icons";
+import { faTriangleExclamation } from "../../icons";
 
 interface IConfirmDialogProps {
   additionalText?: string | null;
@@ -58,7 +58,7 @@ export default function ConfirmDialog({
                   <div className="sm:flex sm:items-start">
                     <div className="mx-auto flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-red-100 dark:bg-red-200 sm:mx-0 sm:h-10 sm:w-10">
                       <FontAwesomeIcon
-                        icon={byPrefixAndName.fal["triangle-exclamation"]}
+                        icon={faTriangleExclamation}
                         className="h-6 w-6 text-red-600 dark:text-red-700"
                         aria-hidden="true"
                       />
