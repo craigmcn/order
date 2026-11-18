@@ -2,7 +2,7 @@ import { useCallback, useEffect, useState } from "react";
 import { useMediaQuery } from "@uidotdev/usehooks";
 import { Transition } from "@headlessui/react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { byPrefixAndName } from "@awesome.me/kit-84f13ff524/icons";
+import { faBars, faList, faXmark } from "../../icons";
 import StoredNames from "../StoredNames/StoredNames";
 import Settings from "./Settings";
 
@@ -45,11 +45,7 @@ function Aside() {
           onClick={toggleOffCanvas}
           aria-label="Open settings menu"
         >
-          <FontAwesomeIcon
-            icon={byPrefixAndName.fal["bars"]}
-            size="lg"
-            fixedWidth
-          />
+          <FontAwesomeIcon icon={faBars} size="lg" />
         </button>
       </div>
 
@@ -69,10 +65,7 @@ function Aside() {
           <div className="w-80">
             <div className="flex justify-between items-center border-b border-slate-400 p-4">
               <h2 className="font-extralight uppercase tracking-wide text-slate-500 dark:text-slate-400">
-                <FontAwesomeIcon
-                  icon={byPrefixAndName.fal["list"]}
-                  className="me-2"
-                />
+                <FontAwesomeIcon icon={faList} className="me-2" />
                 Stored lists
               </h2>
 
@@ -82,11 +75,7 @@ function Aside() {
                 onClick={toggleOffCanvas}
                 aria-label="Close settings menu"
               >
-                <FontAwesomeIcon
-                  icon={byPrefixAndName.fal["xmark"]}
-                  size="lg"
-                  fixedWidth
-                />
+                <FontAwesomeIcon icon={faXmark} size="lg" />
               </button>
             </div>
 

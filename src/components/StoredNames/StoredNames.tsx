@@ -1,7 +1,7 @@
 import { useCallback } from "react";
 import { useLocalStorage } from "@uidotdev/usehooks";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { byPrefixAndName } from "@awesome.me/kit-84f13ff524/icons";
+import { faTriangleExclamation } from "../../icons";
 import ListItem from "./ListItem";
 
 interface IStoredNamesProps {
@@ -30,7 +30,7 @@ function StoredNames({ onSelect = () => {} }: IStoredNamesProps) {
       {(!storedNames || Object.keys(storedNames).length === 0) && (
         <p className="p-4 text-slate-600 dark:text-slate-400">
           <FontAwesomeIcon
-            icon={byPrefixAndName.fal["exclamation-triangle"]}
+            icon={faTriangleExclamation}
             className="text-orange-500 me-2"
           />
           No stored lists

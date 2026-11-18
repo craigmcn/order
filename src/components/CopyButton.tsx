@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { byPrefixAndName } from "@awesome.me/kit-84f13ff524/icons";
+import { faCircleCheck, faCopy } from "../icons";
 import { copyToClipboard } from "../utils";
 
 interface ICopyButtonProps {
@@ -36,8 +36,7 @@ function CopyButton({ text = "" }: ICopyButtonProps) {
     >
       <FontAwesomeIcon
         data-testid="copy-button-icon"
-        icon={byPrefixAndName.fal[copied ? "check-circle" : "copy"]}
-        fixedWidth
+        icon={copied ? faCircleCheck : faCopy}
       />
     </button>
   );

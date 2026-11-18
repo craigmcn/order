@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useLocalStorage, useMediaQuery } from "@uidotdev/usehooks";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { byPrefixAndName } from "@awesome.me/kit-84f13ff524/icons";
+import { faEclipse, faGear } from "../../icons";
 import { DEFAULT_OPTIONS } from "../../utils/constants";
 import type { IOptions } from "../../utils/constants";
 import Switch from "../Fields/Switch";
@@ -65,7 +65,7 @@ function Settings() {
   return (
     <>
       <h2 className="border-b border-slate-400 py-5 px-4 font-extralight uppercase tracking-wide text-slate-600 dark:text-slate-400">
-        <FontAwesomeIcon icon={byPrefixAndName.fal["cog"]} className="me-2" />
+        <FontAwesomeIcon icon={faGear} className="me-2" />
         Settings
       </h2>
       <div className="p-4">
@@ -127,10 +127,7 @@ function Settings() {
       <div className="mt-3 border-t border-slate-400">
         <div className="p-4">
           <h3 className="mb-1 font-light tracking-wide text-slate-600 dark:text-slate-400">
-            <FontAwesomeIcon
-              icon={byPrefixAndName.fal["eclipse"]}
-              className="me-2"
-            />
+            <FontAwesomeIcon icon={faEclipse} className="me-2" />
             Appearance
           </h3>
 

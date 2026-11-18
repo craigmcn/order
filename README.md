@@ -19,11 +19,11 @@ Settings (prefix, separators, Oxford comma, dark/light theme) are available in t
 - [Vite 8](https://vite.dev/) with [`@vitejs/plugin-react`](https://github.com/vitejs/vite-plugin-react)
 - [Tailwind CSS v4](https://tailwindcss.com/) — class-based dark mode
 - [Headless UI](https://headlessui.com/) — accessible dialog/switch primitives
-- [Font Awesome](https://fontawesome.com/) icons via a private kit
+- [Font Awesome](https://fontawesome.com/) Pro icons (Sharp Duotone Light) via the npm SVG packages
 
 ## Development
 
-Requires Node 24 and Yarn 4. A `FONTAWESOME_NPM_AUTH_TOKEN` environment variable is needed to install the private Font Awesome kit.
+Requires Node 24 and Yarn 4. A `FONTAWESOME_NPM_AUTH_TOKEN` environment variable is needed to install the Font Awesome Pro packages.
 
 ```bash
 yarn install
