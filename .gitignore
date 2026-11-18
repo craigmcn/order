@@ -26,8 +26,6 @@ playwright/.cache
 .yarn/*
 !.yarn/patches
 !.yarn/plugins
-!.yarn/releases
-!.yarn/sdks
 !.yarn/versions
 
 # Editor directories and files
