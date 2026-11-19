@@ -88,6 +88,7 @@ Pre-commit hook (`.husky/pre-commit`) runs: `prettier --check`, `eslint src`, `t
 - **PR #15 (merged)** — add `vitest-axe`, wire it into `tests/setup.ts` + `src/types/vitest.d.ts`, add an accessibility scan test to `src/App.test.tsx`
 - **PR #16 (merged)** — add Playwright E2E testing: `playwright.config.ts`, `e2e/order.spec.ts` (golden-path generate + clear), `test:e2e` script, `tsconfig.node.json` covers `e2e/` + `@types/node`, `vitest.config.ts` excludes `e2e/**`, CI installs/caches Chromium and runs `yarn test:e2e`
 - **PR #19** — replace the Font Awesome kit with Font Awesome 7 Pro Sharp Duotone Light (npm); `src/icons.ts` re-exports icons with `autoAddCss = false` (CSP-friendly); drop the `awesome.me` scope and kit typings
+- **PR #21** — Yarn via Corepack only: remove `yarnPath` and the committed `.yarn/releases` bundle; CI runs `corepack enable` before `setup-node` (closes #20)
 
 ### Outstanding
 
