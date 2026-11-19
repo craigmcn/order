@@ -7,6 +7,9 @@ export default mergeConfig(
   defineConfig({
     test: {
       environment: "jsdom",
+      // Node 25+ defines its own global localStorage (undefined without
+      // --localstorage-file), which shadows jsdom's and breaks useLocalStorage.
+      execArgv: ["--no-experimental-webstorage"],
       globals: true,
       exclude: [...configDefaults.exclude, "e2e/**"],
       setupFiles: "./tests/setup.ts",

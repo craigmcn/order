@@ -18,7 +18,7 @@ yarn coverage     # Vitest with coverage report
 yarn test:e2e     # Playwright E2E tests (requires `yarn playwright install chromium` once)
 ```
 
-**Tests:** Vitest 4 + Testing Library. Co-located alongside source files (`*.test.tsx` / `*.test.ts` next to the component or module they test). An automated `vitest-axe` accessibility scan of the rendered `App` runs as part of the normal unit-test suite.
+**Tests:** Vitest 4 + Testing Library. Co-located alongside source files (`*.test.tsx` / `*.test.ts` next to the component or module they test). An automated `vitest-axe` accessibility scan of the rendered `App` runs as part of the normal unit-test suite. Vitest uses jsdom and runs workers with `--no-experimental-webstorage`: on Node 25+, Node's own global `localStorage` otherwise overrides jsdom's and breaks every `useLocalStorage` component.
 
 **E2E:** Playwright (`playwright.config.ts`, Chromium only), specs in `e2e/`. Runs against `yarn dev` on port 3090. Excluded from Vitest's glob (`vitest.config.ts` adds `e2e/**` to `configDefaults.exclude`); run in CI only, not pre-commit (browser install + startup too slow for a hook).
 
@@ -48,6 +48,10 @@ A single-page React 19 + TypeScript app (Vite 8) that generates a randomized spe
 
 **Stored lists:** Saved under `localStorage` key `'names'` as `Record<string, string[]>` (UUID → names array). `StoredNames` renders these as `ListItem` rows; deleting opens a `ConfirmDialog` (Headless UI `Dialog`).
 
+## Security headers
+
+`netlify.toml` sets only `[[headers]]` (build settings stay in the Netlify UI): a same-origin CSP (`'self'` everywhere, no `'unsafe-inline'`), `nosniff`, `Referrer-Policy` and `Permissions-Policy`. Netlify only; GitHub Pages can't set headers. `index.html`'s inline redirect/theme script is allowed by its SHA-256 hash, so editing it means updating the hash. `src/securityHeaders.test.ts` fails if they drift apart. Anything new that loads cross-origin needs a CSP change.
+
 ## Styling
 
 Tailwind CSS v4 (`@tailwindcss/vite` plugin — no `tailwind.config.js` content array needed in v4). Dark mode is class-based (`dark:` variants toggled by adding/removing `dark` on `document.documentElement`). Theme preference is persisted in `localStorage` under `'theme'` (`'dark'` | `'light'` | `undefined` for system).
@@ -59,6 +63,7 @@ Icons are Font Awesome 7 Pro **Sharp Duotone Light** (`@fortawesome/sharp-duoton
 - Interfaces are prefixed with `I` (e.g. `IOptions`, `INamesEntry`).
 - When extending HTML element attribute interfaces and overriding a property type (e.g. allowing `id?: string | null`), use `Omit<HTMLAttributes<HTMLElement>, 'id'>` before adding the narrower type.
 - Strict mode is on (`tsconfig.app.json`). No `any`.
+- `tsconfig.app.json` declares `"types": ["vite/client"]` so `?raw` imports (used by `securityHeaders.test.ts`) type-check.
 - Jest-dom and vitest-axe matchers are augmented via `/// <reference types="..." />` in `src/types/vitest.d.ts`.
 - `tsconfig.node.json` covers `vite.config.ts`, `vitest.config.ts`, `playwright.config.ts`, and `e2e/`; it declares `"types": ["node"]` (via `@types/node`) so `process.env` resolves in those config/test files.
 
@@ -89,6 +94,7 @@ Pre-commit hook (`.husky/pre-commit`) runs: `prettier --check`, `eslint src`, `t
 - **PR #16 (merged)** — add Playwright E2E testing: `playwright.config.ts`, `e2e/order.spec.ts` (golden-path generate + clear), `test:e2e` script, `tsconfig.node.json` covers `e2e/` + `@types/node`, `vitest.config.ts` excludes `e2e/**`, CI installs/caches Chromium and runs `yarn test:e2e`
 - **PR #19** — replace the Font Awesome kit with Font Awesome 7 Pro Sharp Duotone Light (npm); `src/icons.ts` re-exports icons with `autoAddCss = false` (CSP-friendly); drop the `awesome.me` scope and kit typings
 - **PR #21** — Yarn via Corepack only: remove `yarnPath` and the committed `.yarn/releases` bundle; CI runs `corepack enable` before `setup-node` (closes #20)
+- **PR #23** — security headers in `netlify.toml` (same-origin CSP with inline-script hash, `nosniff`, `Referrer-Policy`, `Permissions-Policy`) plus a hash-drift test (closes #17); Vitest runs with `--no-experimental-webstorage` so tests pass on Node 25+ (closes #22)
 
 ### Outstanding
 
