@@ -23,7 +23,7 @@ Settings (prefix, separators, Oxford comma, dark/light theme) are available in t
 
 ## Development
 
-Requires Node 24 and Yarn 4. A `FONTAWESOME_NPM_AUTH_TOKEN` environment variable is needed to install the Font Awesome Pro packages.
+Requires Node 24 and Yarn 4 (via Corepack: run `corepack enable` once). A `FONTAWESOME_NPM_AUTH_TOKEN` environment variable is needed to install the Font Awesome Pro packages.
 
 ```bash
 yarn install
