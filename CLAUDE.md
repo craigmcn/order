@@ -94,6 +94,7 @@ Pre-commit hook (`.husky/pre-commit`) runs: `prettier --check`, `eslint src`, `t
 - **PR #16 (merged)** — add Playwright E2E testing: `playwright.config.ts`, `e2e/order.spec.ts` (golden-path generate + clear), `test:e2e` script, `tsconfig.node.json` covers `e2e/` + `@types/node`, `vitest.config.ts` excludes `e2e/**`, CI installs/caches Chromium and runs `yarn test:e2e`
 - **PR #19** — replace the Font Awesome kit with Font Awesome 7 Pro Sharp Duotone Light (npm); `src/icons.ts` re-exports icons with `autoAddCss = false` (CSP-friendly); drop the `awesome.me` scope and kit typings
 - **PR #21** — Yarn via Corepack only: remove `yarnPath` and the committed `.yarn/releases` bundle; CI runs `corepack enable` before `setup-node` (closes #20)
+- **PR #23** — security headers in `netlify.toml` (same-origin CSP with inline-script hash, `nosniff`, `Referrer-Policy`, `Permissions-Policy`) plus a hash-drift test (closes #17); Vitest runs with `--no-experimental-webstorage` so tests pass on Node 25+ (closes #22)
 
 ### Outstanding
 
