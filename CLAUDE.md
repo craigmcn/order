@@ -50,7 +50,7 @@ A single-page React 19 + TypeScript app (Vite 8) that generates a randomized spe
 
 ## Security headers
 
-`netlify.toml` sets only `[[headers]]` (build settings stay in the Netlify UI): a same-origin CSP (`'self'` everywhere, no `'unsafe-inline'`), `nosniff`, `Referrer-Policy` and `Permissions-Policy`. Netlify only; GitHub Pages can't set headers. `index.html`'s inline redirect/theme script is allowed by its SHA-256 hash, so editing it means updating the hash. `src/securityHeaders.test.ts` fails if they drift apart. Anything new that loads cross-origin needs a CSP change.
+`netlify.toml` sets the build (`yarn build:netlify`, publish dir `netlify`) and security headers: a same-origin CSP (`'self'` everywhere, no `'unsafe-inline'`), `nosniff`, `Referrer-Policy` and `Permissions-Policy`. Netlify only; GitHub Pages can't set headers. `index.html`'s inline redirect/theme script is allowed by its SHA-256 hash, so editing it means updating the hash. `src/securityHeaders.test.ts` fails if they drift apart. Anything new that loads cross-origin needs a CSP change.
 
 ## Styling
 

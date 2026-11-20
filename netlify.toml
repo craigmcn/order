@@ -1,11 +1,14 @@
-# Build settings stay in the Netlify UI; this file only adds headers.
-# Everything is same-origin, so 'self' covers scripts, styles, icons and the
-# manifest. script-src allows index.html's inline redirect/theme script by
-# hash; src/securityHeaders.test.ts fails if the script and hash drift apart.
+[build]
+  command = "yarn build:netlify"
+  publish = "netlify"
+
+# CSP lists only directives that differ from default-src 'self'. index.html's
+# inline script must run before the bundle loads, so it's allowed by hash;
+# src/securityHeaders.test.ts fails if the script and hash drift apart.
 [[headers]]
   for = "/*"
   [headers.values]
-    Content-Security-Policy = "default-src 'self'; script-src 'self' 'sha256-r2y4G84adoq4HhvYD3eCCc8tunsdYfywNrPwgNyJVxk='; style-src 'self'; img-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'"
+    Content-Security-Policy = "default-src 'self'; script-src 'self' 'sha256-r2y4G84adoq4HhvYD3eCCc8tunsdYfywNrPwgNyJVxk='; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'"
     X-Content-Type-Options = "nosniff"
     Referrer-Policy = "strict-origin-when-cross-origin"
     Permissions-Policy = "camera=(), microphone=(), geolocation=(), payment=(), usb=(), browsing-topics=()"
